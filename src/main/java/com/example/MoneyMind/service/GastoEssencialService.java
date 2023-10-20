@@ -1,13 +1,13 @@
 package com.example.MoneyMind.service;
 
+import com.example.MoneyMind.dtos.GastoEssencialDTO;
 import com.example.MoneyMind.mapper.GastoEssencialMapper;
+import com.example.MoneyMind.repository.GastoEssencialRepository;
 import com.example.MoneyMind.repository.LimitesRepository;
 import com.example.MoneyMind.util.validacao.ValidacaoGastoEssencial;
-import com.example.moneymind.dtos.GastoEssencialDTO;
-import com.example.moneymind.entidades.GastoEssencial;
-import com.example.moneymind.entidades.Limites;
+import com.example.MoneyMind.entidades.GastoEssencial;
+import com.example.MoneyMind.entidades.Limites;
 import com.example.moneymind.exception.MoneyMindException;
-import com.example.moneymind.repository.GastoEssencialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;

@@ -1,10 +1,7 @@
-package com.example.moneymind.mapper;
+package com.example.MoneyMind.mapper;
 
-import com.example.moneymind.dtos.GastoEssencialDTO;
-import com.example.moneymind.dtos.InvestimentoDTO;
-import com.example.moneymind.entidades.GastoEssencial;
-import com.example.moneymind.entidades.GastoNaoEssencial;
-import com.example.moneymind.entidades.Investimento;
+import com.example.MoneyMind.dtos.InvestimentoDTO;
+import com.example.MoneyMind.entidades.Investimento;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -23,6 +20,6 @@ public interface InvestimentoMapper {
     InvestimentoDTO toDTO(Investimento investimento);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    GastoEssencial updateFromDTO(GastoEssencialDTO dto, @MappingTarget GastoEssencial gastoEssencial);
+    Investimento updateFromDTO(InvestimentoDTO dto, @MappingTarget Investimento investimento);
 
 }

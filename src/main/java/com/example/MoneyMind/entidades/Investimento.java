@@ -1,6 +1,6 @@
-package com.example.moneymind.entidades;
+package com.example.MoneyMind.entidades;
 
-import com.example.moneymind.enums.TipoInvestimento;
+import com.example.MoneyMind.enums.TipoInvestimento;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

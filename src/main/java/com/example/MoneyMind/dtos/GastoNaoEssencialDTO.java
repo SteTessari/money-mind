@@ -1,8 +1,8 @@
-package com.example.moneymind.dtos;
+package com.example.MoneyMind.dtos;
 
-import com.example.moneymind.enums.TipoCategoria;
-import com.example.moneymind.enums.FormaPagamento;
-import com.example.moneymind.enums.StatusConta;
+import com.example.MoneyMind.enums.FormaPagamento;
+import com.example.MoneyMind.enums.StatusConta;
+import com.example.MoneyMind.enums.TipoCategoria;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

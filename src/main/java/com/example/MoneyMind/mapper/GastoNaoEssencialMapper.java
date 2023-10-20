@@ -1,7 +1,7 @@
-package com.example.moneymind.mapper;
+package com.example.MoneyMind.mapper;
 
-import com.example.moneymind.dtos.GastoNaoEssencialDTO;
-import com.example.moneymind.entidades.GastoNaoEssencial;
+import com.example.MoneyMind.dtos.GastoNaoEssencialDTO;
+import com.example.MoneyMind.entidades.GastoNaoEssencial;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

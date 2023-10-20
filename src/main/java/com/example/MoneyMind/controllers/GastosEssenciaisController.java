@@ -1,7 +1,7 @@
 package com.example.MoneyMind.controllers;
 
+import com.example.MoneyMind.dtos.GastoEssencialDTO;
 import com.example.MoneyMind.service.GastoEssencialService;
-import com.example.moneymind.dtos.GastoEssencialDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

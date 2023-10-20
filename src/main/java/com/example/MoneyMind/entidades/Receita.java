@@ -1,4 +1,4 @@
-package com.example.moneymind.entidades;
+package com.example.MoneyMind.entidades;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

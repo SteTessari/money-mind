@@ -1,4 +1,4 @@
-package com.example.moneymind.dtos;
+package com.example.MoneyMind.dtos;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

@@ -1,10 +1,7 @@
-package com.example.moneymind.service;
+package com.example.MoneyMind.service;
 
-import com.example.moneymind.entidades.GastoNaoEssencial;
-import com.example.moneymind.repository.GastoEssencialRepository;
-import com.example.moneymind.repository.GastoNaoEssencialRepository;
+import com.example.MoneyMind.repository.GastoNaoEssencialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service

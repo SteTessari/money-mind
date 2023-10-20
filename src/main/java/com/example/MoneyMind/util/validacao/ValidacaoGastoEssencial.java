@@ -1,7 +1,7 @@
 package com.example.MoneyMind.util.validacao;
 
-import com.example.moneymind.entidades.GastoEssencial;
-import com.example.moneymind.entidades.Limites;
+import com.example.MoneyMind.entidades.GastoEssencial;
+import com.example.MoneyMind.entidades.Limites;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

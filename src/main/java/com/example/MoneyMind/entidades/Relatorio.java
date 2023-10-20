@@ -1,6 +1,6 @@
-package com.example.moneymind.entidades;
+package com.example.MoneyMind.entidades;
 
-import com.example.moneymind.enums.TipoCategoria;
+import com.example.MoneyMind.enums.TipoCategoria;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

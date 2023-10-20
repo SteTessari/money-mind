@@ -1,4 +1,4 @@
-package com.example.moneymind.enums;
+package com.example.MoneyMind.enums;
 
 public enum TipoInvestimento {
     CURTO_PRAZO,

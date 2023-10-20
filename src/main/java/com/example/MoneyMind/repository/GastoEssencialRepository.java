@@ -1,6 +1,6 @@
-package com.example.moneymind.repository;
+package com.example.MoneyMind.repository;
 
-import com.example.moneymind.entidades.GastoEssencial;
+import com.example.MoneyMind.entidades.GastoEssencial;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
