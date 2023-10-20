@@ -1,0 +1,32 @@
+package com.example.MoneyMind.controllers;
+
+import com.example.MoneyMind.service.GastoEssencialService;
+import com.example.moneymind.dtos.GastoEssencialDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/gastos-essenciais")
+public class GastosEssenciaisController {
+
+    @Autowired
+    private GastoEssencialService gastoEssencialService;
+
+    @PostMapping
+    public ResponseEntity<String> inserir(@RequestBody GastoEssencialDTO gastoEssencialDTO){
+        gastoEssencialService.inserir(gastoEssencialDTO);
+        return ResponseEntity.ok("Inserido com sucesso");
+    }
+    @PutMapping("/{idGastoEssencial}")
+    public ResponseEntity<String> atualizar(@PathVariable Long idGastoEssencial,
+                                            @RequestBody GastoEssencialDTO gastoEssencialDTO){
+        gastoEssencialService.atualizar(idGastoEssencial, gastoEssencialDTO);
+        return ResponseEntity.ok("Atualizado com sucesso");
+    }
+    @GetMapping("/{idGastoEssencial}")
+    public ResponseEntity<GastoEssencialDTO> buscarPorId(@PathVariable Long idGastoEssencial){
+        return ResponseEntity.ok(gastoEssencialService.buscarDTOPorId(idGastoEssencial));
+    }
+
+}
