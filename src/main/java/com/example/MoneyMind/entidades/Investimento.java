@@ -23,8 +23,8 @@ public class Investimento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)
     private Long id;
-    @Column(name = "ID_USUARIO", nullable = false)
-    private Long idUsuario;
+//    @Column(name = "ID_USUARIO", nullable = false)
+//    private Long idUsuario;
     @NotBlank
     @Column(name = "DESCRICAO")
     private String descricao;

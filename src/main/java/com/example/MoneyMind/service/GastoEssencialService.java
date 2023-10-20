@@ -1,6 +1,7 @@
 package com.example.MoneyMind.service;
 
 import com.example.MoneyMind.dtos.GastoEssencialDTO;
+import com.example.MoneyMind.enums.StatusConta;
 import com.example.MoneyMind.mapper.GastoEssencialMapper;
 import com.example.MoneyMind.repository.GastoEssencialRepository;
 import com.example.MoneyMind.repository.LimitesRepository;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 
@@ -30,6 +32,15 @@ public class GastoEssencialService extends ValidacaoGastoEssencial {
     private final GastoEssencialMapper gastoEssencialMapper = GastoEssencialMapper.INSTANCE;
 
     public void inserir (GastoEssencialDTO gastoEssencialDTO){
+        if (gastoEssencialDTO.getDataPagamento() != null){
+            gastoEssencialDTO.setStatusConta(StatusConta.PAGA);
+        }
+
+        if (gastoEssencialDTO.getDataPagamento() == null &&
+        gastoEssencialDTO.getVencimento().isBefore(LocalDate.now())){
+            gastoEssencialDTO.setStatusConta(StatusConta.ATRASADA);
+        }
+
         GastoEssencial gastoEssencial = gastoEssencialMapper.toObject(gastoEssencialDTO);
         tratativasAntesDeInserir(gastoEssencial);
     }
@@ -67,9 +78,9 @@ public class GastoEssencialService extends ValidacaoGastoEssencial {
         BigDecimal valor = gastoEssencial.getValor();
 
         List<GastoEssencial> gastos = gastoEssencialRepository
-                .findByIdUsuario(gastoEssencial.getIdUsuario());
+                .findByMes(gastoEssencial.getMes().toString());
 
-        Limites limite = limitesRepository.findByMes(YearMonth.now())
+        Limites limite = limitesRepository.findByMes(YearMonth.now().toString())
                 .orElse(null);
 
         validarLimite(gastos, limite, valor);

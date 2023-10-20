@@ -16,7 +16,7 @@ import java.time.YearMonth;
 @AllArgsConstructor
 public class ReceitaDTO implements Serializable {
     @NotNull
-    private YearMonth mes;
+    private String mes;
     @NotNull
     private BigDecimal salario;
     @NotNull
@@ -24,4 +24,10 @@ public class ReceitaDTO implements Serializable {
     @NotNull
     private BigDecimal extra;
 
+    public void setMes(YearMonth yearMonth) {
+        this.mes = yearMonth.toString();
+    }
+    public YearMonth getMes() {
+        return YearMonth.parse(mes);
+    }
 }

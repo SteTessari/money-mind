@@ -17,7 +17,7 @@ import java.time.YearMonth;
 @AllArgsConstructor
 public class RelatorioDTO implements Serializable {
     @NotNull
-    private YearMonth mes;
+    private String mes;
     @NotNull
     private BigDecimal totalDespesasDebito;
     @NotNull
@@ -31,5 +31,10 @@ public class RelatorioDTO implements Serializable {
     @NotNull
     private TipoCategoria tipoCategoria;
 
-
+    public void setMes(YearMonth yearMonth) {
+        this.mes = yearMonth.toString();
+    }
+    public YearMonth getMes() {
+        return YearMonth.parse(mes);
+    }
 }

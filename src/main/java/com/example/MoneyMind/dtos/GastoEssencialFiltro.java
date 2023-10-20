@@ -3,6 +3,7 @@ package com.example.MoneyMind.dtos;
 import com.example.MoneyMind.enums.FormaPagamento;
 import com.example.MoneyMind.enums.StatusConta;
 import com.example.MoneyMind.enums.TipoCategoria;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,9 +24,17 @@ public class GastoEssencialFiltro implements Serializable {
     private LocalDate vencimento;
     private LocalDate dataPagamento;
     private StatusConta statusConta = StatusConta.EM_ABERTO;
-    private YearMonth mes;
+    @NotNull
+    private String mes;
     private BigDecimal valor;
     private FormaPagamento formaPagamento;
     private TipoCategoria tipoCategoria;
 
+    public void setMes(YearMonth yearMonth) {
+        this.mes = yearMonth.toString();
+    }
+
+    public YearMonth getMes() {
+        return YearMonth.parse(mes);
+    }
 }

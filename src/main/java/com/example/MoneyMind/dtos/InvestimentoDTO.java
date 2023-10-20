@@ -20,7 +20,8 @@ import java.time.YearMonth;
 public class InvestimentoDTO implements Serializable {
     @NotBlank
     private String descricao;
-    private YearMonth mes;
+    @NotNull
+    private String mes;
     private String estabelecimento;
     private TipoInvestimento tipoInvestimento;
     @NotNull
@@ -31,4 +32,11 @@ public class InvestimentoDTO implements Serializable {
     private BigDecimal valorInicial;
     @NotNull
     private BigDecimal valorFinal;
+
+    public void setMes(YearMonth yearMonth) {
+        this.mes = yearMonth.toString();
+    }
+    public YearMonth getMes() {
+        return YearMonth.parse(mes);
+    }
 }

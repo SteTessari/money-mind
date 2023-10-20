@@ -27,8 +27,8 @@ public class GastoNaoEssencial implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)
     private Long id;
-    @Column(name = "ID_USUARIO", nullable = false)
-    private Long idUsuario;
+//    @Column(name = "ID_USUARIO", nullable = false)
+//    private Long idUsuario;
     @NotBlank
     @Column(name = "DESCRICAO")
     private String descricao;
@@ -44,8 +44,8 @@ public class GastoNaoEssencial implements Serializable {
     @Column(name = "STATUS_CONTA")
     private StatusConta statusConta = StatusConta.EM_ABERTO;
     @NotNull
-    @Column(name = "MES")
-    private YearMonth mes;
+    @Column(name = "MES", columnDefinition = "VARCHAR(7)")
+    private String mes;
     @NotNull
     @Column(name = "VALOR")
     private BigDecimal valor;
@@ -56,5 +56,10 @@ public class GastoNaoEssencial implements Serializable {
     @Column(name = "CATEGORIA")
     private TipoCategoria tipoCategoria;
 
-
+    public void setMes(YearMonth yearMonth) {
+        this.mes = yearMonth.toString();
+    }
+    public YearMonth getMes() {
+        return YearMonth.parse(mes);
+    }
 }

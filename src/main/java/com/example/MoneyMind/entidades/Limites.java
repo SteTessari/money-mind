@@ -23,10 +23,11 @@ public class Limites implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)
     private Long id;
-    @Column(name = "ID_USUARIO", nullable = false)
-    private Long idUsuario;
-    @Column(name = "MES", nullable = false)
-    private YearMonth mes;
+    //    @Column(name = "ID_USUARIO", nullable = false)
+//    private Long idUsuario;
+    @NotNull
+    @Column(name = "MES", columnDefinition = "VARCHAR(7)")
+    private String mes;
     @NotNull
     @Column(name = "LIMITE")
     private BigDecimal limite;
@@ -34,4 +35,11 @@ public class Limites implements Serializable {
     @Column(name = "TIPO_CATEGORIA")
     private TipoCategoria tipoCategoria;
 
+    public void setMes(YearMonth yearMonth) {
+        this.mes = yearMonth.toString();
+    }
+
+    public YearMonth getMes() {
+        return YearMonth.parse(mes);
+    }
 }

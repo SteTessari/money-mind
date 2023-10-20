@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.YearMonth;
 
 @Entity
 @Table(name = "relatorio")
@@ -21,11 +22,11 @@ public class Relatorio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)
     private Long id;
-    @Column(name = "ID_USUARIO", nullable = false)
-    private Long idUsuario;
+    //    @Column(name = "ID_USUARIO", nullable = false)
+//    private Long idUsuario;
     @NotNull
-    @Column(name = "MES")
-    private int mes;
+    @Column(name = "MES", columnDefinition = "VARCHAR(7)")
+    private String mes;
     @NotNull
     @Column(name = "TOTAL_DESPESAS_DEBITO")
     private BigDecimal totalDespesasDebito;
@@ -45,5 +46,10 @@ public class Relatorio {
     @Column(name = "CATEGORIA")
     private TipoCategoria tipoCategoria;
 
-
+    public void setMes(YearMonth yearMonth) {
+        this.mes = yearMonth.toString();
+    }
+    public YearMonth getMes() {
+        return YearMonth.parse(mes);
+    }
 }

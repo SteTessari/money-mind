@@ -21,11 +21,11 @@ public class Receita {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)
     private Long id;
-    @Column(name = "ID_USUARIO", nullable = false)
-    private Long idUsuario;
+    //    @Column(name = "ID_USUARIO", nullable = false)
+//    private Long idUsuario;
     @NotNull
-    @Column(name = "MES")
-    private YearMonth mes;
+    @Column(name = "MES", columnDefinition = "VARCHAR(7)")
+    private String mes;
     @NotNull
     @Column(name = "SALARIO")
     private BigDecimal salario;
@@ -36,4 +36,10 @@ public class Receita {
     @Column(name = "EXTRA")
     private BigDecimal extra;
 
+    public void setMes(YearMonth yearMonth) {
+        this.mes = yearMonth.toString();
+    }
+    public YearMonth getMes() {
+        return YearMonth.parse(mes);
+    }
 }

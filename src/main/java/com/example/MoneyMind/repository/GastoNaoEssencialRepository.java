@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface GastoNaoEssencialRepository extends JpaRepository<GastoNaoEssencial, Long> {
-    List<GastoNaoEssencial> findByMes(YearMonth mes);
+    List<GastoNaoEssencial> findByMes(String mes);
 
 }

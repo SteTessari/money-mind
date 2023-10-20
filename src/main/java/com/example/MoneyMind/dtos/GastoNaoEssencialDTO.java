@@ -30,7 +30,7 @@ public class GastoNaoEssencialDTO implements Serializable {
     @NotNull
     private StatusConta statusConta = StatusConta.EM_ABERTO;
     @NotNull
-    private YearMonth mes;
+    private String mes;
     @NotNull
     private BigDecimal valor;
     @NotNull
@@ -38,5 +38,11 @@ public class GastoNaoEssencialDTO implements Serializable {
     @NotNull
     private TipoCategoria tipoCategoria;
 
+    public void setMes(YearMonth yearMonth) {
+        this.mes = yearMonth.toString();
+    }
+    public YearMonth getMes() {
+        return YearMonth.parse(mes);
+    }
 
 }

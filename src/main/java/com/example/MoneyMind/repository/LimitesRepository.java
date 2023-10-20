@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface LimitesRepository extends JpaRepository<Limites, Long> {
-    Optional<Limites> findByMes(YearMonth mes);
+    Optional<Limites> findByMes(String mes);
 
 
 }
