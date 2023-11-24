@@ -3,6 +3,9 @@ package com.example.MoneyMind.controllers;
 import com.example.MoneyMind.dtos.GastoEssencialDTO;
 import com.example.MoneyMind.service.GastoEssencialService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,5 +31,11 @@ public class GastosEssenciaisController {
     public ResponseEntity<GastoEssencialDTO> buscarPorId(@PathVariable Long idGastoEssencial){
         return ResponseEntity.ok(gastoEssencialService.buscarDTOPorId(idGastoEssencial));
     }
+
+    @GetMapping("/buscar-todos")
+    public ResponseEntity<Page<GastoEssencialDTO>> buscarTodos(@PageableDefault Pageable pageable){
+        return null;
+    }
+
 
 }
