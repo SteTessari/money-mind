@@ -63,10 +63,9 @@ public class GastoEssencialService extends ValidacaoGastoEssencial {
         return gastoEssencialMapper.toDTO(gastoEssencial);
     }
 
-    public Page<GastoEssencialDTO> buscarTodos(GastoEssencialDTO gastoEssencialDTO, Pageable pageable){
-        GastoEssencial gastoEssencial = gastoEssencialMapper.toObject(gastoEssencialDTO);
+    public Page<GastoEssencialDTO> buscarTodos(Pageable pageable){
 
-        Page<GastoEssencial> gastos = gastoEssencialRepository.findAll(Example.of(gastoEssencial), pageable);
+        Page<GastoEssencial> gastos = gastoEssencialRepository.findAll(pageable);
         return gastos.map(gastoEssencialMapper::toDTO);
     }
 

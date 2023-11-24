@@ -16,25 +16,25 @@ public class GastosEssenciaisController {
     @Autowired
     private GastoEssencialService gastoEssencialService;
 
-    @PostMapping
-    public ResponseEntity<String> inserir(@RequestBody GastoEssencialDTO gastoEssencialDTO){
-        gastoEssencialService.inserir(gastoEssencialDTO);
-        return ResponseEntity.ok("Inserido com sucesso");
-    }
-    @PutMapping("/{idGastoEssencial}")
-    public ResponseEntity<String> atualizar(@PathVariable Long idGastoEssencial,
-                                            @RequestBody GastoEssencialDTO gastoEssencialDTO){
-        gastoEssencialService.atualizar(idGastoEssencial, gastoEssencialDTO);
-        return ResponseEntity.ok("Atualizado com sucesso");
-    }
-    @GetMapping("/{idGastoEssencial}")
-    public ResponseEntity<GastoEssencialDTO> buscarPorId(@PathVariable Long idGastoEssencial){
-        return ResponseEntity.ok(gastoEssencialService.buscarDTOPorId(idGastoEssencial));
-    }
+//    @PostMapping
+//    public ResponseEntity<String> inserir(@RequestBody GastoEssencialDTO gastoEssencialDTO){
+//        gastoEssencialService.inserir(gastoEssencialDTO);
+//        return ResponseEntity.ok("Inserido com sucesso");
+//    }
+//    @PutMapping("/{idGastoEssencial}")
+//    public ResponseEntity<String> atualizar(@PathVariable Long idGastoEssencial,
+//                                            @RequestBody GastoEssencialDTO gastoEssencialDTO){
+//        gastoEssencialService.atualizar(idGastoEssencial, gastoEssencialDTO);
+//        return ResponseEntity.ok("Atualizado com sucesso");
+//    }
+//    @GetMapping("/{idGastoEssencial}")
+//    public ResponseEntity<GastoEssencialDTO> buscarPorId(@PathVariable Long idGastoEssencial){
+//        return ResponseEntity.ok(gastoEssencialService.buscarDTOPorId(idGastoEssencial));
+//    }
 
-    @GetMapping("/buscar-todos")
+    @GetMapping
     public ResponseEntity<Page<GastoEssencialDTO>> buscarTodos(@PageableDefault Pageable pageable){
-        return null;
+        return ResponseEntity.ok(gastoEssencialService.buscarTodos(pageable));
     }
 
 
