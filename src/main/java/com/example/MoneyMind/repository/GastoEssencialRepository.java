@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface GastoEssencialRepository extends JpaRepository<GastoEssencial, Long> {
+    List<GastoEssencial> findByDescricao(String descricao);
     List<GastoEssencial> findByMes(String mes);
 
 

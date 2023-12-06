@@ -9,6 +9,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/gastos-essenciais")
 public class GastosEssenciaisController {
@@ -16,24 +18,26 @@ public class GastosEssenciaisController {
     @Autowired
     private GastoEssencialService gastoEssencialService;
 
-//    @PostMapping
-//    public ResponseEntity<String> inserir(@RequestBody GastoEssencialDTO gastoEssencialDTO){
-//        gastoEssencialService.inserir(gastoEssencialDTO);
-//        return ResponseEntity.ok("Inserido com sucesso");
-//    }
-//    @PutMapping("/{idGastoEssencial}")
-//    public ResponseEntity<String> atualizar(@PathVariable Long idGastoEssencial,
-//                                            @RequestBody GastoEssencialDTO gastoEssencialDTO){
-//        gastoEssencialService.atualizar(idGastoEssencial, gastoEssencialDTO);
-//        return ResponseEntity.ok("Atualizado com sucesso");
-//    }
-//    @GetMapping("/{idGastoEssencial}")
-//    public ResponseEntity<GastoEssencialDTO> buscarPorId(@PathVariable Long idGastoEssencial){
-//        return ResponseEntity.ok(gastoEssencialService.buscarDTOPorId(idGastoEssencial));
-//    }
+    @PostMapping
+    public ResponseEntity<String> inserir(@RequestBody GastoEssencialDTO gastoEssencialDTO) {
+        gastoEssencialService.inserir(gastoEssencialDTO);
+        return ResponseEntity.ok("Inserido com sucesso");
+    }
+
+    @PutMapping("/{idGastoEssencial}")
+    public ResponseEntity<String> atualizar(@PathVariable Long idGastoEssencial,
+                                            @RequestBody GastoEssencialDTO gastoEssencialDTO) {
+        gastoEssencialService.atualizar(idGastoEssencial, gastoEssencialDTO);
+        return ResponseEntity.ok("Atualizado com sucesso");
+    }
 
     @GetMapping
-    public ResponseEntity<Page<GastoEssencialDTO>> buscarTodos(@PageableDefault Pageable pageable){
+    public ResponseEntity<List<GastoEssencialDTO>> filtrar(@RequestBody String descricao) {
+        return ResponseEntity.ok(gastoEssencialService.filtrar(descricao));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<GastoEssencialDTO>> buscarTodos(@PageableDefault Pageable pageable) {
         return ResponseEntity.ok(gastoEssencialService.buscarTodos(pageable));
     }
 

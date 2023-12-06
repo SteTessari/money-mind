@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GastoEssencialService extends ValidacaoGastoEssencial {
@@ -91,5 +92,12 @@ public class GastoEssencialService extends ValidacaoGastoEssencial {
                 .orElseThrow(() -> new MoneyMindException(
                         HttpStatus.NO_CONTENT,
                         "Nenhum resultado encontrado"));
+    }
+
+    public List<GastoEssencialDTO> filtrar(String descricao) {
+        return gastoEssencialRepository.findByDescricao(descricao)
+                .stream()
+                .map(gastoEssencialMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }
