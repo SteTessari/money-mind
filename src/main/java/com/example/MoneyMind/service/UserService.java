@@ -8,8 +8,6 @@ import com.example.MoneyMind.repository.UserRepository;
 import com.example.MoneyMind.util.validations.ValidateUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,10 +19,6 @@ public class UserService extends ValidateUserService {
 
     private final UserMapper userMapper = UserMapper.INSTANCE;
 
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
     public UserDTO create(UserDTO userDTO) {
         Optional<Users> usuarioEncontrado = repository.findByUsername(userDTO.getUsername());
 
@@ -35,11 +29,11 @@ public class UserService extends ValidateUserService {
             throw new MoneyMindException(HttpStatus.BAD_REQUEST,
                     "The password must contain at least 1 uppercase letter, 1 lowercase letter, 1 digit and 1 special character.");
 
-        userDTO.setPassword(passwordEncoder().encode(userDTO.getPassword()));
+//        userDTO.setPassword(passwordEncoder().encode(userDTO.getPassword()));
         return gravar(userDTO);
     }
 
-    public UserDTO gravar(UserDTO userDTO){
+    public UserDTO gravar(UserDTO userDTO) {
         Users users = userMapper.toObject(userDTO);
         Users usersSalvo = repository.save(users);
         return userMapper.toDTO(usersSalvo);
