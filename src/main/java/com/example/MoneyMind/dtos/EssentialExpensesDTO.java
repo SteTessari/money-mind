@@ -3,6 +3,7 @@ package com.example.MoneyMind.dtos;
 import com.example.MoneyMind.enums.CategoryType;
 import com.example.MoneyMind.enums.FormPaymentType;
 import com.example.MoneyMind.enums.AccountStatus;
+import com.example.MoneyMind.enums.TypeFinancialExpense;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -36,6 +37,8 @@ public class EssentialExpensesDTO implements Serializable {
     private FormPaymentType formOfPayment;
     @NotNull
     private CategoryType categoryType;
+    @NotNull
+    private TypeFinancialExpense typeFinancialExpense;
 
     public void setMonth(YearMonth yearMonth) {
         this.month = yearMonth.toString();

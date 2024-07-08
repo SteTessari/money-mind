@@ -3,6 +3,7 @@ package com.example.MoneyMind.entidades;
 import com.example.MoneyMind.enums.FormPaymentType;
 import com.example.MoneyMind.enums.AccountStatus;
 import com.example.MoneyMind.enums.CategoryType;
+import com.example.MoneyMind.enums.TypeFinancialExpense;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -58,6 +59,10 @@ public class EssentialExpenses implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "CATEGORY_TYPE")
     private CategoryType categoryType;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TYPE_FINANCIAL_EXPENSE")
+    private TypeFinancialExpense typeFinancialExpense;
 
     public void setMonth(YearMonth yearMonth) {
         this.month = yearMonth.toString();
