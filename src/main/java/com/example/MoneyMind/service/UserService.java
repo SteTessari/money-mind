@@ -19,7 +19,7 @@ public class UserService extends ValidateUserService {
 
     private final UserMapper userMapper = UserMapper.INSTANCE;
 
-    public UserDTO create(UserDTO userDTO) {
+    public Long create(UserDTO userDTO) {
         Optional<Users> usuarioEncontrado = repository.findByUsername(userDTO.getUsername());
 
         if (usuarioEncontrado.isPresent())
@@ -30,12 +30,11 @@ public class UserService extends ValidateUserService {
                     "The password must contain at least 1 uppercase letter, 1 lowercase letter, 1 digit and 1 special character.");
 
 //        userDTO.setPassword(passwordEncoder().encode(userDTO.getPassword()));
-        return gravar(userDTO);
+        return gravar(userDTO).getId();
     }
 
-    public UserDTO gravar(UserDTO userDTO) {
+    public Users gravar(UserDTO userDTO) {
         Users users = userMapper.toObject(userDTO);
-        Users usersSalvo = repository.save(users);
-        return userMapper.toDTO(usersSalvo);
+        return repository.save(users);
     }
 }
