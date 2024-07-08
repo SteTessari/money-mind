@@ -21,6 +21,8 @@ import java.time.YearMonth;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EssentialExpensesDTO implements Serializable {
+    @NotNull(message = "Por favor informe o usuário")
+    private Long idUser;
     @NotBlank(message = "Por favor informa a descrição da despesa")
     private String description;
     private String commercialPlace;
