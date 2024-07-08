@@ -2,6 +2,7 @@ package com.example.MoneyMind.controllers;
 
 import com.example.MoneyMind.dtos.EssentialExpensesDTO;
 import com.example.MoneyMind.service.EssentialExpensesService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +20,7 @@ public class FinancialExpenseController {
     private EssentialExpensesService essentialExpensesService;
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody EssentialExpensesDTO essentialExpensesDTO) {
+    public ResponseEntity<String> create(@Valid @RequestBody EssentialExpensesDTO essentialExpensesDTO) {
         essentialExpensesService.create(essentialExpensesDTO);
         return ResponseEntity.ok("Successfully inserted");
     }

@@ -1,7 +1,7 @@
 package com.example.MoneyMind.util.validations;
 
 import com.example.MoneyMind.entidades.EssentialExpenses;
-import com.example.MoneyMind.entidades.Limit;
+import com.example.MoneyMind.entidades.ExpenseLimit;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -11,7 +11,7 @@ import java.util.List;
 public class ValidateEssencialExpenses {
 
     protected void validarLimite(List<EssentialExpenses> gastos,
-                                 Limit limite, BigDecimal valor) {
+                                 ExpenseLimit limite, BigDecimal valor) {
         BigDecimal total = gastos.stream()
                 .map(EssentialExpenses::getValue)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);

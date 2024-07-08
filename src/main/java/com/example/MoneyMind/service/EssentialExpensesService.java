@@ -2,7 +2,7 @@ package com.example.MoneyMind.service;
 
 import com.example.MoneyMind.dtos.EssentialExpensesDTO;
 import com.example.MoneyMind.entidades.EssentialExpenses;
-import com.example.MoneyMind.entidades.Limit;
+import com.example.MoneyMind.entidades.ExpenseLimit;
 import com.example.MoneyMind.enums.AccountStatus;
 import com.example.MoneyMind.exception.MoneyMindException;
 import com.example.MoneyMind.mapper.EssencialExpensesMapper;
@@ -79,10 +79,10 @@ public class EssentialExpensesService extends ValidateEssencialExpenses {
         List<EssentialExpenses> expenses = essencialExpensesRepository
                 .findByMonth(essentialExpenses.getMonth().toString());
 
-        Limit limit = limitsRepository.findByMonth(YearMonth.now().toString())
+        ExpenseLimit expenseLimit = limitsRepository.findByMonth(YearMonth.now().toString())
                 .orElse(null);
 
-        validarLimite(expenses, limit, value);
+        validarLimite(expenses, expenseLimit, value);
         create(essentialExpenses);
     }
 

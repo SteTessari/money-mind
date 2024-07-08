@@ -13,12 +13,12 @@ import java.math.BigDecimal;
 import java.time.YearMonth;
 
 @Entity
-@Table(name = "limit")
+@Table(name = "expense_limit")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Limit implements Serializable {
+public class ExpenseLimit implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)
@@ -33,7 +33,7 @@ public class Limit implements Serializable {
     @Column(name = "MONTH", columnDefinition = "VARCHAR(7)")
     private String month;
     @NotNull
-    @Column(name = "LIMIT")
+    @Column(name = "EXPENSE_LIMIT")
     private BigDecimal limit;
     @NotNull
     @Enumerated(EnumType.STRING)
