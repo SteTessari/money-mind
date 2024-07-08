@@ -35,10 +35,6 @@ public class EssentialExpenses implements Serializable {
     private String description;
     @Column(name = "COMMERCIAL_PLACE")
     private String commercialPlace;
-    @NotNull
-    @Column(name = "INVOICE_PAYMENT")
-    private LocalDate invoicePayment;
-    @NotNull
     @Column(name = "INVOICE_PAYMENT_DATE")
     private LocalDate invoicePaymentDate;
     @NotNull

@@ -21,23 +21,23 @@ import java.time.YearMonth;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EssentialExpensesDTO implements Serializable {
-    @NotBlank
+    @NotBlank(message = "Por favor informa a descrição da despesa")
     private String description;
     private String commercialPlace;
-    @NotNull
+    @NotNull(message = "Por favor informe a data de vencimento da fatura")
     private LocalDate invoiceDueDate;
     private LocalDate invoicePaymentDate;
     @NotNull
     private AccountStatus accountStatus = AccountStatus.EM_ABERTO;
-    @NotNull
+    @NotNull(message = "Por favor informe o mês")
     private String month;
-    @NotNull
+    @NotNull(message = "Por favor informe o valor da despesa")
     private BigDecimal value;
-    @NotNull
+    @NotNull(message = "Por favor informe a forma de pagamento")
     private FormPaymentType formOfPayment;
-    @NotNull
+    @NotNull(message = "Por favor informe a categoria")
     private CategoryType categoryType;
-    @NotNull
+    @NotNull(message = "Por favor informe o tipo da despesa")
     private TypeFinancialExpense typeFinancialExpense;
 
     public void setMonth(YearMonth yearMonth) {
