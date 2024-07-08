@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/expenses/essential")
-public class OutgoingEssentialController {
+public class FinancialExpenseController {
 
     @Autowired
     private EssentialExpensesService essentialExpensesService;
