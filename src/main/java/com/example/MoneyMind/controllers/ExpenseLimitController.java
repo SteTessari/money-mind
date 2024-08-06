@@ -21,7 +21,7 @@ public class ExpenseLimitController {
     @PostMapping
     public ResponseEntity<String> create(@RequestBody ExpenseLimit expenseLimit){
         limitsService.create(expenseLimit);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Inserido com sucesso.");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Successfully created.");
     }
 
 }
