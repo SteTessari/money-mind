@@ -3,6 +3,7 @@ package com.example.MoneyMind.controllers;
 import com.example.MoneyMind.entidades.ExpenseLimit;
 import com.example.MoneyMind.repository.LimitsRepository;
 import com.example.MoneyMind.service.LimitsService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class ExpenseLimitController {
     private LimitsService limitsService;
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody ExpenseLimit expenseLimit){
+    public ResponseEntity<String> create(@Valid @RequestBody ExpenseLimit expenseLimit){
         limitsService.create(expenseLimit);
         return ResponseEntity.status(HttpStatus.CREATED).body("Successfully created.");
     }

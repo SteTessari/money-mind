@@ -29,7 +29,7 @@ public class ExpenseLimit implements Serializable {
     @NotNull
     @Column(name = "ID_CATEGORY", nullable = false)
     private Long idCategory;
-    @NotNull
+
     @Column(name = "MONTH", columnDefinition = "VARCHAR(7)")
     private String month;
     @NotNull
