@@ -6,6 +6,7 @@ import com.example.MoneyMind.exception.MoneyMindException;
 import com.example.MoneyMind.mapper.UserMapper;
 import com.example.MoneyMind.repository.UserRepository;
 import com.example.MoneyMind.util.validations.ValidateUserService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,10 @@ public class UserService extends ValidateUserService {
     public Users gravar(UserDTO userDTO) {
         Users users = userMapper.toObject(userDTO);
         return repository.save(users);
+    }
+
+    public Users findById(Long idUser){
+        return repository.findById(idUser)
+                .orElseThrow(() -> new MoneyMindException(HttpStatus.NOT_FOUND, "User not found."));
     }
 }
