@@ -35,10 +35,6 @@ public class ExpenseLimit implements Serializable {
     @NotNull
     @Column(name = "EXPENSE_LIMIT")
     private BigDecimal limit;
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "CATEGORY_TYPE")
-    private CategoryType categoryType;
 
     public void setMonth(YearMonth yearMonth) {
         this.month = yearMonth.toString();
