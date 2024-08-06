@@ -1,6 +1,8 @@
 package com.example.MoneyMind.entidades;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,9 +22,12 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)
     private Long id;
-    @Column(name = "ID_USER")
+
+    @NotNull
+    @Column(name = "ID_USER", nullable = false)
     private Long idUser;
 
-    @Column(name = "DESCRIPTION")
+    @NotBlank
+    @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 }
