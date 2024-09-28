@@ -15,13 +15,13 @@ import java.time.YearMonth;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FinancialIncomeDTO implements Serializable {
-    @NotNull
+    @NotNull(message = "Please inform the user")
+    private Long idUsuario;
+    @NotNull(message = "Please enter the month")
     private String month;
-    @NotNull
-    private BigDecimal salary;
-    @NotNull
+    @NotNull(message = "Please provide wage")
+    private BigDecimal wage;
     private BigDecimal credit;
-    @NotNull
     private BigDecimal extraIncome;
 
     public void setMonth(YearMonth yearMonth) {
