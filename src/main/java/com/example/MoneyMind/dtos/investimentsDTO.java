@@ -3,6 +3,7 @@ package com.example.MoneyMind.dtos;
 import com.example.MoneyMind.enums.InvestmentType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,19 +19,22 @@ import java.time.YearMonth;
 @NoArgsConstructor
 @AllArgsConstructor
 public class investimentsDTO implements Serializable {
-    @NotBlank
+    @NotBlank(message = "Please provide description")
     private String description;
-    @NotNull
+    @NotNull(message = "Please enter the month")
     private String month;
     private String placeInvest;
+    @NotNull(message = "Please inform the type of investment")
     private InvestmentType investmentType;
-    @NotNull
+    @NotNull(message = "Please provide the date of application")
     private LocalDate startDate;
-    @NotNull
+    @NotNull(message = "Please provide the redemption date")
     private LocalDate investmentRedemption;
-    @NotNull
+
+    @PositiveOrZero
+    @NotNull(message = "Please inform the amount applied")
     private BigDecimal InitialValue;
-    @NotNull
+
     private BigDecimal finalValeu;
 
     public void setMonth(YearMonth yearMonth) {
