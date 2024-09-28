@@ -1,4 +1,4 @@
-package com.example.MoneyMind.exception;
+package com.example.MoneyMind.config.exception;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

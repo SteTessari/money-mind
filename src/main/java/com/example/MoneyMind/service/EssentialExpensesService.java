@@ -4,7 +4,7 @@ import com.example.MoneyMind.dtos.ExpenseDTO;
 import com.example.MoneyMind.entidades.Expense;
 import com.example.MoneyMind.entidades.ExpenseLimit;
 import com.example.MoneyMind.enums.Status;
-import com.example.MoneyMind.exception.MoneyMindException;
+import com.example.MoneyMind.config.exception.MoneyMindException;
 import com.example.MoneyMind.mapper.EssencialExpensesMapper;
 import com.example.MoneyMind.repository.ExpenseRepository;
 import com.example.MoneyMind.repository.LimitsRepository;

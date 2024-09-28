@@ -1,7 +1,7 @@
 package com.example.MoneyMind.service;
 
 import com.example.MoneyMind.entidades.Category;
-import com.example.MoneyMind.exception.MoneyMindException;
+import com.example.MoneyMind.config.exception.MoneyMindException;
 import com.example.MoneyMind.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.example.MoneyMind.exception;
+package com.example.MoneyMind.config.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;

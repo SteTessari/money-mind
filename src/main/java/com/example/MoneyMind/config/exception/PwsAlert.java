@@ -1,4 +1,4 @@
-package com.example.MoneyMind.exception;
+package com.example.MoneyMind.config.exception;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.http.HttpStatus;
