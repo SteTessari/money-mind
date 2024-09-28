@@ -1,6 +1,6 @@
 package com.example.MoneyMind.controllers;
 
-import com.example.MoneyMind.dtos.EssentialExpensesDTO;
+import com.example.MoneyMind.dtos.ExpenseDTO;
 import com.example.MoneyMind.service.EssentialExpensesService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,25 +20,25 @@ public class FinancialExpenseController {
     private EssentialExpensesService essentialExpensesService;
 
     @PostMapping
-    public ResponseEntity<String> create(@Valid @RequestBody EssentialExpensesDTO essentialExpensesDTO) {
-        essentialExpensesService.create(essentialExpensesDTO);
+    public ResponseEntity<String> create(@Valid @RequestBody ExpenseDTO expenseDTO) {
+        essentialExpensesService.create(expenseDTO);
         return ResponseEntity.ok("Successfully inserted");
     }
 
     @PutMapping("/{idEssentialExpenses}")
     public ResponseEntity<String> update(@PathVariable Long idEssentialExpenses,
-                                         @RequestBody EssentialExpensesDTO essentialExpensesDTO) {
-        essentialExpensesService.update(idEssentialExpenses, essentialExpensesDTO);
+                                         @RequestBody ExpenseDTO expenseDTO) {
+        essentialExpensesService.update(idEssentialExpenses, expenseDTO);
         return ResponseEntity.ok("Updated successfully");
     }
 
     @PostMapping("/filter")
-    public ResponseEntity<List<EssentialExpensesDTO>> filter(@RequestBody String description) {
+    public ResponseEntity<List<ExpenseDTO>> filter(@RequestBody String description) {
         return ResponseEntity.ok(essentialExpensesService.filter(description));
     }
 
     @GetMapping
-    public ResponseEntity<Page<EssentialExpensesDTO>> findAll(@PageableDefault Pageable pageable) {
+    public ResponseEntity<Page<ExpenseDTO>> findAll(@PageableDefault Pageable pageable) {
         return ResponseEntity.ok(essentialExpensesService.findAll(pageable));
     }
 

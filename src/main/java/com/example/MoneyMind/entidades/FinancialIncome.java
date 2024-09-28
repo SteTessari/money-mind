@@ -21,26 +21,31 @@ public class FinancialIncome {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)
     private Long id;
+
     @Column(name = "ID_USUARIO", nullable = false)
     private Long idUsuario;
-    @NotNull
-    @Column(name = "MES", columnDefinition = "VARCHAR(7)")
-    private String mes;
-    @NotNull
-    @Column(name = "SALARIO")
-    private BigDecimal salario;
-    @NotNull
-    @Column(name = "CREDITO")
-    private BigDecimal credito;
-    @NotNull
-    @Column(name = "EXTRA")
-    private BigDecimal extra;
 
-    public void setMes(YearMonth yearMonth) {
-        this.mes = yearMonth.toString();
+    @NotNull
+    @Column(name = "MONTH", columnDefinition = "VARCHAR(7)", nullable = false)
+    private String month;
+
+    @NotNull
+    @Column(name = "WAGE", nullable = false)
+    private BigDecimal wage;
+
+    @NotNull
+    @Column(name = "CREDIT_CAPACITY", nullable = false)
+    private BigDecimal creditCapacity;
+
+    @NotNull
+    @Column(name = "EXTRA_INCOME", nullable = false)
+    private BigDecimal extra_income;
+
+    public void setMonth(YearMonth yearMonth) {
+        this.month = yearMonth.toString();
     }
 
-    public YearMonth getMes() {
-        return YearMonth.parse(mes);
+    public YearMonth getMonth() {
+        return YearMonth.parse(month);
     }
 }

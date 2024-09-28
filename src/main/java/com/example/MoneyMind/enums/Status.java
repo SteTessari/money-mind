@@ -1,6 +1,6 @@
 package com.example.MoneyMind.enums;
 
-public enum AccountStatus {
+public enum Status {
     PAGA,
     EM_ABERTO,
     ATRASADA

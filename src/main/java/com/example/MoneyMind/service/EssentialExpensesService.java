@@ -1,12 +1,12 @@
 package com.example.MoneyMind.service;
 
-import com.example.MoneyMind.dtos.EssentialExpensesDTO;
-import com.example.MoneyMind.entidades.EssentialExpenses;
+import com.example.MoneyMind.dtos.ExpenseDTO;
+import com.example.MoneyMind.entidades.Expense;
 import com.example.MoneyMind.entidades.ExpenseLimit;
-import com.example.MoneyMind.enums.AccountStatus;
+import com.example.MoneyMind.enums.Status;
 import com.example.MoneyMind.exception.MoneyMindException;
 import com.example.MoneyMind.mapper.EssencialExpensesMapper;
-import com.example.MoneyMind.repository.EssencialExpensesRepository;
+import com.example.MoneyMind.repository.ExpenseRepository;
 import com.example.MoneyMind.repository.LimitsRepository;
 import com.example.MoneyMind.util.validations.ValidateEssencialExpenses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,74 +27,74 @@ public class EssentialExpensesService extends ValidateEssencialExpenses {
     @Autowired
     private LimitsRepository limitsRepository;
     @Autowired
-    private EssencialExpensesRepository essencialExpensesRepository;
+    private ExpenseRepository expenseRepository;
 
     private final EssencialExpensesMapper essencialExpensesMapper = EssencialExpensesMapper.INSTANCE;
 
-    public void create(EssentialExpensesDTO essentialExpensesDTO) {
-        if (essentialExpensesDTO.getInvoicePaymentDate() != null) {
-            essentialExpensesDTO.setAccountStatus(AccountStatus.PAGA);
+    public void create(ExpenseDTO expenseDTO) {
+        if (expenseDTO.getInvoicePaymentDate() != null) {
+            expenseDTO.setStatus(Status.PAGA);
         }
 
-        if (essentialExpensesDTO.getInvoicePaymentDate() == null &&
-                essentialExpensesDTO.getInvoiceDueDate().isBefore(LocalDate.now())) {
-            essentialExpensesDTO.setAccountStatus(AccountStatus.ATRASADA);
+        if (expenseDTO.getInvoicePaymentDate() == null &&
+                expenseDTO.getInvoiceDueDate().isBefore(LocalDate.now())) {
+            expenseDTO.setStatus(Status.ATRASADA);
         }
 
-        EssentialExpenses essentialExpenses = essencialExpensesMapper.toObject(essentialExpensesDTO);
-        treatmentsBeforeInserting(essentialExpenses);
+        Expense expense = essencialExpensesMapper.toObject(expenseDTO);
+        treatmentsBeforeInserting(expense);
     }
 
-    public void update(Long idGastoEssencial, EssentialExpensesDTO essentialExpensesDTO) {
-        EssentialExpenses essentialExpenses = findById(idGastoEssencial);
+    public void update(Long idGastoEssencial, ExpenseDTO expenseDTO) {
+        Expense expense = findById(idGastoEssencial);
 
-        EssentialExpenses essentialExpensesUpdated = essencialExpensesMapper.updateFromDTO(
-                essentialExpensesDTO, essentialExpenses);
+        Expense expenseUpdated = essencialExpensesMapper.updateFromDTO(
+                expenseDTO, expense);
 
-        create(essentialExpensesUpdated);
+        create(expenseUpdated);
     }
 
-    public EssentialExpensesDTO findDTOById(Long idEssentialExpenses) {
-        EssentialExpenses essentialExpenses = essencialExpensesRepository.findById(idEssentialExpenses)
+    public ExpenseDTO findDTOById(Long idEssentialExpenses) {
+        Expense expense = expenseRepository.findById(idEssentialExpenses)
                 .orElseThrow(() -> new MoneyMindException(
                         HttpStatus.NO_CONTENT,
                         "No result found."));
 
-        return essencialExpensesMapper.toDTO(essentialExpenses);
+        return essencialExpensesMapper.toDTO(expense);
     }
 
-    public Page<EssentialExpensesDTO> findAll(Pageable pageable) {
+    public Page<ExpenseDTO> findAll(Pageable pageable) {
 
-        Page<EssentialExpenses> expenses = essencialExpensesRepository.findAll(pageable);
+        Page<Expense> expenses = expenseRepository.findAll(pageable);
         return expenses.map(essencialExpensesMapper::toDTO);
     }
 
-    private void create(EssentialExpenses essentialExpenses) {
-        essencialExpensesRepository.save(essentialExpenses);
+    private void create(Expense expense) {
+        expenseRepository.save(expense);
     }
 
-    private void treatmentsBeforeInserting(EssentialExpenses essentialExpenses) {
-        BigDecimal value = essentialExpenses.getValue();
+    private void treatmentsBeforeInserting(Expense expense) {
+        BigDecimal value = expense.getValue();
 
-        List<EssentialExpenses> expenses = essencialExpensesRepository
-                .findByMonth(essentialExpenses.getMonth().toString());
+        List<Expense> expenses = expenseRepository
+                .findByMonth(expense.getMonth());
 
         ExpenseLimit expenseLimit = limitsRepository.findByMonth(YearMonth.now().toString())
                 .orElse(null);
 
         validarLimite(expenses, expenseLimit, value);
-        create(essentialExpenses);
+        create(expense);
     }
 
-    private EssentialExpenses findById(Long idGastoEssencial) {
-        return essencialExpensesRepository.findById(idGastoEssencial)
+    private Expense findById(Long idGastoEssencial) {
+        return expenseRepository.findById(idGastoEssencial)
                 .orElseThrow(() -> new MoneyMindException(
                         HttpStatus.NO_CONTENT,
                         "No result found."));
     }
 
-    public List<EssentialExpensesDTO> filter(String description) {
-        return essencialExpensesRepository.findByDescription(description)
+    public List<ExpenseDTO> filter(String description) {
+        return expenseRepository.findByDescription(description)
                 .stream()
                 .map(essencialExpensesMapper::toDTO)
                 .collect(Collectors.toList());

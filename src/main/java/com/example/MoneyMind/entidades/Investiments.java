@@ -23,25 +23,33 @@ public class Investiments {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)
     private Long id;
+
     @Column(name = "ID_USER", nullable = false)
     private Long idUser;
+
     @NotBlank
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION", nullable = false)
     private String description;
+
     @Column(name = "COMMERCIAL_PLACE")
     private String commercialPlace;
+
     @Enumerated(EnumType.STRING)
-    @Column(name = "TYPE")
+    @Column(name = "TYPE", nullable = false)
     private InvestmentType type;
+
     @NotNull
-    @Column(name = "START_DATE")
+    @Column(name = "START_DATE", nullable = false)
     private LocalDate startDate;
+
     @NotNull
-    @Column(name = "INVESTIMENT_REDEMPTION")
+    @Column(name = "INVESTIMENT_REDEMPTION", nullable = false)
     private LocalDate investmentRedemption;
+
     @NotNull
-    @Column(name = "INITIAL_VALUE")
+    @Column(name = "INITIAL_VALUE", nullable = false)
     private BigDecimal initialValue;
+
     @NotNull
     @Column(name = "FINAL_VALUE")
     private BigDecimal finalValue;
