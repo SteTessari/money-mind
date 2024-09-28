@@ -16,19 +16,12 @@ import java.time.YearMonth;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReportDTO implements Serializable {
-    @NotNull
     private String month;
-    @NotNull
     private BigDecimal TotalExpensesDebit;
-    @NotNull
     private BigDecimal totalExpensesCredit;
-    @NotNull
     private BigDecimal debitFinancialBalance;
-    @NotNull
     private BigDecimal creditFinancialBalance;
-    @NotNull
     private BigDecimal totalByCategory;
-    @NotNull
     private CategoryType categoryType;
 
     public void setMonth(YearMonth yearMonth) {
