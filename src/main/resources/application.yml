@@ -16,3 +16,5 @@ api:
       secret: my-secret-key
 
 
+server:
+  port: 8082
