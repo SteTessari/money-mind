@@ -14,12 +14,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-    @NotBlank(message = "Informe um nome de usuário")
+    @NotBlank(message = "Please enter a username.")
     private String username;
-    @Email(message = "Por favor informe uma email válido")
-    @NotBlank(message = "Informe um email")
+    @Email(message = "Please provide a valid email.")
+    @NotBlank(message = "Please provide an email")
     private String email;
-    @NotBlank(message = "Informe a senha")
-    @Size(min = 8, max = 20, message = "A senha deve conter 8 caracteres")
+    @NotBlank(message = "Please enter password")
+    @Size(min = 6, max = 20, message = "Password must contain 6 characters")
     private String password;
 }
