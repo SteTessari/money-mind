@@ -22,4 +22,6 @@ public class UserDTO {
     @NotBlank(message = "Please enter password")
     @Size(min = 6, max = 20, message = "Password must contain 6 characters")
     private String password;
+
+    private String cellPhone;
 }
