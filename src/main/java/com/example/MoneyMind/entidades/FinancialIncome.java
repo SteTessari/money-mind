@@ -22,8 +22,8 @@ public class FinancialIncome {
     @Column(name = "ID", unique = true)
     private Long id;
 
-    @Column(name = "ID_USUARIO", nullable = false)
-    private Long idUsuario;
+    @Column(name = "ID_USER", nullable = false)
+    private Long idUser;
 
     @NotNull
     @Column(name = "MONTH", columnDefinition = "VARCHAR(7)", nullable = false)
