@@ -25,4 +25,11 @@ public class MoneyMindException extends RuntimeException {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return "MoneyMindException{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }
