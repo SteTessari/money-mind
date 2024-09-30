@@ -2,8 +2,11 @@ package com.example.MoneyMind.repository;
 
 import com.example.MoneyMind.entidades.Expense;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.time.Month;
 import java.util.List;
 
@@ -13,5 +16,11 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 
     List<Expense> findByMonth(Month month);
 
+    @Query("select sum(e.value) from Expense e " +
+            "where e.idUser = :idUser and e.month = :month and e.year = :year " +
+            "and e.formOfPayment = 'DEBIT' ")
+    BigDecimal findTotalExpenseByMonthAndYearAndIdUser(@Param("month") Month month,
+                                                       @Param("year") Integer year,
+                                                       @Param("idUser") Long idUser);
 
 }
