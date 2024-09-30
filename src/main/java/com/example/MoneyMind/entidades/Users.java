@@ -26,6 +26,9 @@ public class Users {
     @Column(name = "USERNAME", unique = true, nullable = false)
     private String username;
 
+    @Column(name = "CELL_PHONE")
+    private String cellPhone;
+
     @Email(message = "Por favor informe uma email válido")
     @Column(name = "EMAIL", nullable = false)
     private String email;
