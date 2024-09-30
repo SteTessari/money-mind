@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.Month;
 import java.time.YearMonth;
 
 @Entity
@@ -26,8 +27,12 @@ public class FinancialIncome {
     private Long idUser;
 
     @NotNull
-    @Column(name = "MONTH", columnDefinition = "VARCHAR(7)", nullable = false)
-    private String month;
+    @Column(name = "MONTH", nullable = false)
+    private Month month;
+
+    @NotNull
+    @Column(name = "YEAR", nullable = false)
+    private Integer year;
 
     @NotNull
     @Column(name = "WAGE", nullable = false)
@@ -41,11 +46,4 @@ public class FinancialIncome {
     @Column(name = "EXTRA_INCOME", nullable = false)
     private BigDecimal extra_income;
 
-    public void setMonth(YearMonth yearMonth) {
-        this.month = yearMonth.toString();
-    }
-
-    public YearMonth getMonth() {
-        return YearMonth.parse(month);
-    }
 }
