@@ -40,11 +40,10 @@ public class UserService extends ValidateUserService {
         Users user = userMapper.toObject(userDTO);
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
-        return gravar(userDTO).getId();
+        return gravar(user).getId();
     }
 
-    public Users gravar(UserDTO userDTO) {
-        Users users = userMapper.toObject(userDTO);
+    public Users gravar(Users users) {
         return repository.save(users);
     }
 
