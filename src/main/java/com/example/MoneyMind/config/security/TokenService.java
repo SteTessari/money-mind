@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class TokenService {
@@ -25,46 +27,78 @@ public class TokenService {
     private final ObjectMapper objectMapper = new ObjectMapper(); // Para conversão JSON
 
     public String generateToken(Users user) {
-        JwtTokenDTO userDto = new JwtTokenDTO(user.getId(), user.getUsername(), user.getEmail()); // Cria o DTO
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            String subject = objectMapper.writeValueAsString(userDto); // Serializa o DTO em JSON
+
+            // Define o cabeçalho personalizado
+            Map<String, Object> headerClaims = new HashMap<>();
+            headerClaims.put("typ", "JWT"); // Tipo do token
+            headerClaims.put("alg", "HS256"); // Algoritmo
 
             return JWT.create()
+                    .withHeader(headerClaims) // Adiciona o cabeçalho personalizado
                     .withIssuer("login-auth-api")
-                    .withSubject(subject)
+                    .withClaim("idUser", user.getId())
+                    .withClaim("email", user.getEmail())
+                    .withClaim("username", user.getUsername())
                     .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);
-        } catch (JWTCreationException | JsonProcessingException e) {
+
+        } catch (JWTCreationException e) {
             throw new RuntimeException("Erro ao gerar o token.", e);
         }
     }
 
+
     public JwtTokenDTO validateToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
+
             DecodedJWT decodedJWT = JWT.require(algorithm)
                     .withIssuer("login-auth-api")
                     .build()
                     .verify(token);
 
-            // Deserializa o subject (JSON) para o DTO
-            String subject = decodedJWT.getSubject();
-            return objectMapper.readValue(subject, JwtTokenDTO.class);
-        } catch (JWTVerificationException | JsonProcessingException e) {
-            return null;
+            // Extrai as claims personalizadas
+            Long idUser = decodedJWT.getClaim("idUser").asLong();
+            String email = decodedJWT.getClaim("email").asString();
+            String username = decodedJWT.getClaim("username").asString();
+
+            // Cria e retorna o DTO
+            return new JwtTokenDTO(idUser, username, email);
+
+        } catch (JWTVerificationException e) {
+            return null; // Ou lançar uma exceção personalizada
         }
     }
 
-    public String extractUsername(String token) {
+
+    public static String extractUsername(String token) {
         try {
             DecodedJWT decodedJWT = JWT.decode(token);
-            JwtTokenDTO userDto = objectMapper.readValue(decodedJWT.getSubject(), JwtTokenDTO.class);
-            return userDto.getUsername(); // Retorna o username do DTO
+            return decodedJWT.getClaim("username").asString();
         } catch (Exception e) {
             return null; // Ou lançar uma exceção personalizada
         }
     }
+    public static Long extractUserId(String token) {
+        try {
+            DecodedJWT decodedJWT = JWT.decode(token);
+            String idUser = decodedJWT.getClaim("idUser").asString();
+            return Long.valueOf(idUser);
+        } catch (Exception e) {
+            return null; // Ou lançar uma exceção personalizada
+        }
+    }
+    public static String extractEmail(String token) {
+        try {
+            DecodedJWT decodedJWT = JWT.decode(token);
+            return decodedJWT.getClaim("email").asString();
+        } catch (Exception e) {
+            return null; // Ou lançar uma exceção personalizada
+        }
+    }
+
 
     private Instant generateExpirationDate() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));

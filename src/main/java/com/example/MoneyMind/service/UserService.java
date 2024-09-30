@@ -52,14 +52,14 @@ public class UserService extends ValidateUserService {
                 .orElseThrow(() -> new MoneyMindException(HttpStatus.NOT_FOUND, ExceptionMessages.USER_NOT_FOUND));
     }
 
-    public AuthenticatedUserDTO login(LoginRequestDTO body) {
+    public String login(LoginRequestDTO body) {
         Users user = repository.findByEmail(body.email())
                 .orElseThrow(() -> new MoneyMindException(HttpStatus.NOT_FOUND, ExceptionMessages.USER_NOT_FOUND));
 
         if (passwordEncoder.matches(body.password(), user.getPassword())) {
             String token = this.tokenService.generateToken(user);
 
-            return new AuthenticatedUserDTO(user.getUsername(), token);
+            return token;
         } else {
             throw new MoneyMindException(HttpStatus.BAD_REQUEST, ExceptionMessages.INCORRECT_PASSWORD);
         }

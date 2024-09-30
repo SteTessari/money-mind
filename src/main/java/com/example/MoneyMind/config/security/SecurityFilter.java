@@ -19,6 +19,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Collections;
 
+import static com.example.MoneyMind.config.security.TokenService.extractEmail;
+
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
@@ -33,7 +35,7 @@ public class SecurityFilter extends OncePerRequestFilter {
             var login = tokenService.validateToken(token);
 
             if (login != null) {
-                Users user = userRepository.findByEmail(login.getEmail()).orElseThrow(() -> new RuntimeException(ExceptionMessages.USER_NOT_FOUND));
+                Users user = userRepository.findByEmail(extractEmail(token)).orElseThrow(() -> new RuntimeException(ExceptionMessages.USER_NOT_FOUND));
                 var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
                 var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
