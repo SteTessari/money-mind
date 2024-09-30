@@ -50,11 +50,6 @@ public class Report {
     @Column(name = "TOTAL_FOR_CATEGORY")
     private BigDecimal totalForCategory;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "CATEGORY")
-    private CategoryType categoryType;
-
     public void setMonth(YearMonth yearMonth) {
         this.month = yearMonth.toString();
     }
