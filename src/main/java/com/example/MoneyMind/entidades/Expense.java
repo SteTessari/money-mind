@@ -49,6 +49,10 @@ public class Expense implements Serializable {
     private Month month;
 
     @NotNull
+    @Column(name = "YEAR", nullable = false)
+    private Integer year;
+
+    @NotNull
     @Column(name = "VALUE", nullable = false)
     private BigDecimal value;
 
