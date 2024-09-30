@@ -16,7 +16,7 @@ import java.time.YearMonth;
 @AllArgsConstructor
 public class FinancialIncomeDTO implements Serializable {
     @NotNull(message = "Please inform the user")
-    private Long idUsuario;
+    private Long idUser;
     @NotNull(message = "Please enter the month")
     private String month;
     @NotNull(message = "Please provide wage")
