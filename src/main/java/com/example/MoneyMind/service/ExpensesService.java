@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class EssentialExpensesService extends ValidateEssencialExpenses {
+public class ExpensesService extends ValidateEssencialExpenses {
 
     @Autowired
     private LimitsRepository limitsRepository;
@@ -82,7 +82,7 @@ public class EssentialExpensesService extends ValidateEssencialExpenses {
         ExpenseLimit expenseLimit = limitsRepository.findByMonth(YearMonth.now().toString())
                 .orElse(null);
 
-        validarLimite(expenses, expenseLimit, value);
+        validateLimit(expenses, expenseLimit, value);
         create(expense);
     }
 
