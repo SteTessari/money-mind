@@ -63,9 +63,9 @@ public class ExpensesService extends ValidateEssencialExpenses {
         return essencialExpensesMapper.toDTO(expense);
     }
 
-    public Page<ExpenseDTO> findAll(Pageable pageable) {
+    public Page<ExpenseDTO> findAll(Long idUser, Pageable pageable) {
 
-        Page<Expense> expenses = expenseRepository.findAll(pageable);
+        Page<Expense> expenses = expenseRepository.findByIdUser(idUser, pageable);
         return expenses.map(essencialExpensesMapper::toDTO);
     }
 
