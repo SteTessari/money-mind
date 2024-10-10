@@ -1,6 +1,7 @@
 package com.example.MoneyMind.controllers;
 
 import com.example.MoneyMind.dtos.ExpenseDTO;
+import com.example.MoneyMind.dtos.authentication.JwtTokenDTO;
 import com.example.MoneyMind.service.ExpensesService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,8 +62,9 @@ public class FinancialExpenseController {
             @ApiResponse(responseCode = "200", description = "Returns all expenses")
     })
     @GetMapping
-    public ResponseEntity<Page<ExpenseDTO>> findAll(@PageableDefault Pageable pageable) {
-        return ResponseEntity.ok(expensesService.findAll(pageable));
+    public ResponseEntity<Page<ExpenseDTO>> findAll(@PageableDefault Pageable pageable, @AuthenticationPrincipal JwtTokenDTO jwtTokenDTO) {
+        Long idUser = jwtTokenDTO.getId();
+        return ResponseEntity.ok(expensesService.findAll(idUser, pageable));
     }
 
 

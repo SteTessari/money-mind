@@ -2,6 +2,7 @@ package com.example.MoneyMind.config.security;
 
 import com.example.MoneyMind.config.exception.ExceptionMessages;
 import com.example.MoneyMind.config.exception.MoneyMindException;
+import com.example.MoneyMind.dtos.authentication.JwtTokenDTO;
 import com.example.MoneyMind.entidades.Users;
 import com.example.MoneyMind.repository.UserRepository;
 import jakarta.servlet.FilterChain;
@@ -29,7 +30,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     UserRepository userRepository;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
         try{
 
             if (request.getRequestURI().equals("/auth/login") || request.getRequestURI().equals("/user/register")){
@@ -42,8 +43,12 @@ public class SecurityFilter extends OncePerRequestFilter {
             if (login != null) {
                 Users user = userRepository.findByEmail(extractEmail(token)).orElseThrow(() -> new RuntimeException(ExceptionMessages.USER_NOT_FOUND));
                 var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
-                var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
+
+                var jwtTokenDTO = new JwtTokenDTO(user.getId(), user.getEmail(), user.getUsername());
+
+                var authentication = new UsernamePasswordAuthenticationToken(jwtTokenDTO, null, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+
             }
             filterChain.doFilter(request, response);
         } catch (MoneyMindException e) {
