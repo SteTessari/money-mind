@@ -2,6 +2,9 @@ package com.example.MoneyMind.controllers;
 
 import com.example.MoneyMind.dtos.UserDTO;
 import com.example.MoneyMind.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +21,17 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    @Operation(
+            summary = "Register User",
+            description = "Endpoint to register a new user."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "409", description = "The username already exists"),
+            @ApiResponse(responseCode = "400", description = "Invalid password"),
+            @ApiResponse(responseCode = "201", description = "User created successfully")
+    })
     @PostMapping("/register")
-    public ResponseEntity<Long> create(@Valid @RequestBody UserDTO userDTO){
+    public ResponseEntity<Long> create(@Valid @RequestBody UserDTO userDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(userDTO));
     }
 

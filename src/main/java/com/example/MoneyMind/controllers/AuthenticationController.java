@@ -1,8 +1,10 @@
 package com.example.MoneyMind.controllers;
 
-import com.example.MoneyMind.dtos.authentication.AuthenticatedUserDTO;
 import com.example.MoneyMind.dtos.authentication.LoginRequestDTO;
 import com.example.MoneyMind.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +20,14 @@ public class AuthenticationController {
     private UserService userService;
 
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "404", description = "User not found"),
+            @ApiResponse(responseCode = "400", description = "Incorrect password"),
+            @ApiResponse(responseCode = "500", description = "Error generating token")
+    })
+    @Operation(summary = "Login", description = "Endpoint to perform user login.")
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequestDTO body) {
         return ResponseEntity.accepted().body(userService.login(body));
-    }}
+    }
+}

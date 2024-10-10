@@ -1,12 +1,12 @@
 package com.example.MoneyMind.controllers;
 
-import com.example.MoneyMind.config.exception.MoneyMindException;
-import com.example.MoneyMind.config.security.TokenService;
 import com.example.MoneyMind.dtos.authentication.JwtTokenDTO;
 import com.example.MoneyMind.service.ReportService;
 import com.example.MoneyMind.service.utils.JwtTokenService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -20,6 +20,10 @@ public class ReportController extends JwtTokenService {
     @Autowired
     private ReportService reportService;
 
+    @Operation(summary = "Find total balance")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Returns the user's total balance")
+    })
     @GetMapping("/total-balance")
     public ResponseEntity<?> findTotalBalance(@RequestHeader("Authorization") String authorizationHeader) {
         JwtTokenDTO jwtTokenDTO = getJwtTokenDTO(authorizationHeader);
