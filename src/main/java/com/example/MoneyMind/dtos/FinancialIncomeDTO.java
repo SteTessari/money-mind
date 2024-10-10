@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.Month;
 import java.time.YearMonth;
 
 @Getter
@@ -15,19 +16,12 @@ import java.time.YearMonth;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FinancialIncomeDTO implements Serializable {
-    @NotNull
-    private String month;
-    @NotNull
-    private BigDecimal salary;
-    @NotNull
+    @NotNull(message = "Please inform the user")
+    private Long idUser;
+    @NotNull(message = "Please enter the month")
+    private Month month;
+    @NotNull(message = "Please provide wage")
+    private BigDecimal wage;
     private BigDecimal credit;
-    @NotNull
     private BigDecimal extraIncome;
-
-    public void setMonth(YearMonth yearMonth) {
-        this.month = yearMonth.toString();
-    }
-    public YearMonth getMonth() {
-        return YearMonth.parse(month);
-    }
 }

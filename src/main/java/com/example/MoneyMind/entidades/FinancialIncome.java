@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.Month;
 import java.time.YearMonth;
 
 @Entity
@@ -21,26 +22,28 @@ public class FinancialIncome {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)
     private Long id;
-    @Column(name = "ID_USUARIO", nullable = false)
-    private Long idUsuario;
-    @NotNull
-    @Column(name = "MES", columnDefinition = "VARCHAR(7)")
-    private String mes;
-    @NotNull
-    @Column(name = "SALARIO")
-    private BigDecimal salario;
-    @NotNull
-    @Column(name = "CREDITO")
-    private BigDecimal credito;
-    @NotNull
-    @Column(name = "EXTRA")
-    private BigDecimal extra;
 
-    public void setMes(YearMonth yearMonth) {
-        this.mes = yearMonth.toString();
-    }
+    @Column(name = "ID_USER", nullable = false)
+    private Long idUser;
 
-    public YearMonth getMes() {
-        return YearMonth.parse(mes);
-    }
+    @NotNull
+    @Column(name = "MONTH", nullable = false)
+    private Month month;
+
+    @NotNull
+    @Column(name = "YEAR", nullable = false)
+    private Integer year;
+
+    @NotNull
+    @Column(name = "WAGE", nullable = false)
+    private BigDecimal wage;
+
+    @NotNull
+    @Column(name = "CREDIT_CAPACITY", nullable = false)
+    private BigDecimal creditCapacity;
+
+    @NotNull
+    @Column(name = "EXTRA_INCOME", nullable = false)
+    private BigDecimal extra_income;
+
 }

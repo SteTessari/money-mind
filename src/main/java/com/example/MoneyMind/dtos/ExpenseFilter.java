@@ -2,8 +2,7 @@ package com.example.MoneyMind.dtos;
 
 import com.example.MoneyMind.enums.CategoryType;
 import com.example.MoneyMind.enums.FormPaymentType;
-import com.example.MoneyMind.enums.AccountStatus;
-import jakarta.validation.constraints.NotBlank;
+import com.example.MoneyMind.enums.Status;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,36 +12,23 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.YearMonth;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NonEssentialExpensesDTO implements Serializable {
-    @NotBlank
+public class ExpenseFilter implements Serializable {
     private String description;
     private String commercialPlace;
-    @NotNull
     private LocalDate invoiceDueDate;
-    @NotNull
     private LocalDate invoicePaymentDate;
+    private Status status = Status.EM_ABERTO;
     @NotNull
-    private AccountStatus accountStatus = AccountStatus.EM_ABERTO;
-    @NotNull
-    private String month;
-    @NotNull
+    private Month month;
     private BigDecimal value;
-    @NotNull
     private FormPaymentType formOfPayment;
-    @NotNull
     private CategoryType categoryType;
-
-    public void setMonth(YearMonth yearMonth) {
-        this.month = yearMonth.toString();
-    }
-    public YearMonth getMonth() {
-        return YearMonth.parse(month);
-    }
 
 }

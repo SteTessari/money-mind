@@ -1,16 +1,25 @@
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
   datasource:
-    url: jdbc:mysql://localhost:6033/money-mind
+    url: jdbc:mysql://localhost:3306/money-mind
     username: root
     password: sft6033
     driver-class-name: com.mysql.cj.jdbc.Driver
-  web:
-    resources:
-      cache:
-        period: 0
-  config:
-    import:
-      optional:configserver:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+api:
+  security:
+    token:
+      secret: my-secret-key
+
+
+server:
+  port: 8082
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+

@@ -6,6 +6,5 @@ public enum CategoryType {
     MERCADO,
     PASSEIO,
     MOVEIS,
-    ELETRODOMESTICOS,
-    CALOPSITAS
+    ELETRODOMESTICOS
 }

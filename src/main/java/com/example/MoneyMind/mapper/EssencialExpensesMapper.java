@@ -1,8 +1,8 @@
 package com.example.MoneyMind.mapper;
 
-import com.example.MoneyMind.dtos.EssentialExpensesDTO;
-import com.example.MoneyMind.dtos.EssentialExpensesFilter;
-import com.example.MoneyMind.entidades.EssentialExpenses;
+import com.example.MoneyMind.dtos.ExpenseDTO;
+import com.example.MoneyMind.dtos.ExpenseFilter;
+import com.example.MoneyMind.entidades.Expense;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -15,13 +15,13 @@ public interface EssencialExpensesMapper {
     EssencialExpensesMapper INSTANCE = Mappers.getMapper(EssencialExpensesMapper.class);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    EssentialExpenses toObject(EssentialExpensesDTO essentialExpensesDTO);
+    Expense toObject(ExpenseDTO expenseDTO);
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    EssentialExpenses toObject(EssentialExpensesFilter filtro);
+    Expense toObject(ExpenseFilter filtro);
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    EssentialExpensesDTO toDTO(EssentialExpenses essentialExpenses);
+    ExpenseDTO toDTO(Expense expense);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    EssentialExpenses updateFromDTO(EssentialExpensesDTO dto, @MappingTarget EssentialExpenses essentialExpenses);
+    Expense updateFromDTO(ExpenseDTO dto, @MappingTarget Expense expense);
 
 }

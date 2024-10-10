@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.time.YearMonth;
 
 @Entity
-@Table(name = "relatorio")
+@Table(name = "report")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,30 +22,33 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)
     private Long id;
+
     @Column(name = "ID_USER", nullable = false)
     private Long idUser;
+
     @NotNull
     @Column(name = "MONTH", columnDefinition = "VARCHAR(7)")
     private String month;
+
     @NotNull
     @Column(name = "DEBIT_TOTAL_EXPENSES")
     private BigDecimal debitTotalExpenses;
+
     @NotNull
     @Column(name = "CREDIT_TOTAL_EXPENSES")
     private BigDecimal creditTotalExpenses;
+
     @NotNull
     @Column(name = "DEBIT_BALANCE")
     private BigDecimal debitBalance;
+
     @NotNull
     @Column(name = "CREDIT_BALANCE")
     private BigDecimal creditBalance;
+
     @NotNull
     @Column(name = "TOTAL_FOR_CATEGORY")
     private BigDecimal totalForCategory;
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "CATEGORY")
-    private CategoryType categoryType;
 
     public void setMonth(YearMonth yearMonth) {
         this.month = yearMonth.toString();

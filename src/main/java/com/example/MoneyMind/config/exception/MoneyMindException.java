@@ -1,4 +1,4 @@
-package com.example.MoneyMind.exception;
+package com.example.MoneyMind.config.exception;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,4 +25,11 @@ public class MoneyMindException extends RuntimeException {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return "MoneyMindException{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

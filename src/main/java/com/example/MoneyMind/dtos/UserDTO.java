@@ -1,6 +1,7 @@
 package com.example.MoneyMind.dtos;
 
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -13,9 +14,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-    @NotBlank(message = "Username required")
+    @NotBlank(message = "Please enter a username.")
     private String username;
-    @NotBlank(message = "Password required")
-    @Size(min = 8, max = 8, message = "Password must contain 8 characters")
+    @Email(message = "Please provide a valid email.")
+    @NotBlank(message = "Please provide an email")
+    private String email;
+    @NotBlank(message = "Please enter password")
+    @Size(min = 6, max = 20, message = "Password must contain 6 characters")
     private String password;
+
+    private String cellPhone;
 }
