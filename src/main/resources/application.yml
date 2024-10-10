@@ -17,7 +17,7 @@ api:
 
 
 server:
-  port: 8082
+  port: 8589
 
 logging:
   level:
