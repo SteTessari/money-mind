@@ -67,6 +67,15 @@ public class TokenService {
             return null;
         }
     }
+    public static String extractEmail(String token) {
+        try {
+            DecodedJWT decodedJWT = JWT.decode(token);
+            return decodedJWT.getClaim("email").asString();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
     private Instant generateExpirationDate() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
