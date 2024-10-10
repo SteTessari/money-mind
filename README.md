@@ -14,8 +14,6 @@ Acreditamos que o Money-mind será seu parceiro ideal para alcançar seus objeti
 ## :wrench: Tecnologias utilizadas
 * <b>Linguagens</b>: Java e SQL
 
-* <b>Frameworks</b>: Spring, Hibernate, Quarkus, Google Web Toolkit, Vaadin
-
 ## :soon: Implementação futura
 * Integração direta com diversos bancos, facilitando ainda mais o acompanhamento das suas transações financeiras em tempo real e também implementar conexões diretas com corretoras de investimento, possibilitando o monitoramento detalhado dos seus investimentos de forma integrada. Essa nova funcionalidade permitirá que você tenha uma visão abrangente de sua carteira de investimentos, facilitando o acompanhamento do desempenho de cada ativo e o saldo geral das suas aplicações financeiras.
 
