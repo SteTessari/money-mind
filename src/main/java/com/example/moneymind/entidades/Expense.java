@@ -1,6 +1,8 @@
 package com.example.moneymind.entidades;
 
-import com.example.moneymind.enums.*;
+import com.example.moneymind.enums.FormPaymentType;
+import com.example.moneymind.enums.Status;
+import com.example.moneymind.enums.TypeFinancialExpense;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

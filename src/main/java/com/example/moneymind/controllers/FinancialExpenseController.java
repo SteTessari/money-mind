@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -19,10 +19,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/financial/expense")
+@RequiredArgsConstructor
 public class FinancialExpenseController {
 
-    @Autowired
-    private ExpensesService expensesService;
+    private final ExpensesService expensesService;
 
     @Operation(summary = "Add expense")
     @ApiResponses(value = {

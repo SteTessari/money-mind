@@ -1,15 +1,15 @@
 package com.example.moneymind.service;
 
+import com.example.moneymind.config.exception.MoneyMindException;
 import com.example.moneymind.dtos.ExpenseDTO;
 import com.example.moneymind.entidades.Expense;
 import com.example.moneymind.entidades.ExpenseLimit;
 import com.example.moneymind.enums.Status;
-import com.example.moneymind.config.exception.MoneyMindException;
 import com.example.moneymind.mapper.EssencialExpensesMapper;
 import com.example.moneymind.repository.ExpenseRepository;
 import com.example.moneymind.repository.LimitsRepository;
 import com.example.moneymind.util.validations.ValidateEssencialExpenses;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -19,17 +19,15 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ExpensesService extends ValidateEssencialExpenses {
 
-    @Autowired
-    private LimitsRepository limitsRepository;
-    @Autowired
-    private ExpenseRepository expenseRepository;
+    private final LimitsRepository limitsRepository;
+    private final ExpenseRepository expenseRepository;
 
-    private final EssencialExpensesMapper essencialExpensesMapper = EssencialExpensesMapper.INSTANCE;
+    private static final EssencialExpensesMapper essencialExpensesMapper = EssencialExpensesMapper.INSTANCE;
 
     public void create(ExpenseDTO expenseDTO) {
         if (expenseDTO.getInvoicePaymentDate() != null) {
@@ -97,6 +95,6 @@ public class ExpensesService extends ValidateEssencialExpenses {
         return expenseRepository.findByDescription(description)
                 .stream()
                 .map(essencialExpensesMapper::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

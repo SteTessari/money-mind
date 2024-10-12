@@ -12,7 +12,7 @@ import java.time.Month;
 @Repository
 public interface FinancialIncomeRepository extends JpaRepository<FinancialIncome, Long> {
 
-    @Query("select sum(f.wage + f.extra_income) from FinancialIncome f " +
+    @Query("select sum(f.wage + f.extraIncome) from FinancialIncome f " +
             "where f.idUser = :idUser and f.month = :month and f.year = :year ")
     BigDecimal findWageByIdUserAndMonth(@Param("idUser") Long idUser,
                                            @Param("year") Integer year,

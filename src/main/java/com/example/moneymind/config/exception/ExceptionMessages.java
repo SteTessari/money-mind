@@ -6,4 +6,7 @@ public class ExceptionMessages {
     public static final String ACCESS_DENIED = "Access denied.";
     public static final String NO_CONTENT = "No results found.";
     public static final String INCORRECT_PASSWORD = "Incorrect password.";
+
+    private ExceptionMessages() {
+    }
 }

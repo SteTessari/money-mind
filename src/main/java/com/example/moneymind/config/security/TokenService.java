@@ -24,6 +24,7 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
+    private static final String EMAIL_CLAIM = "email";
 
     public String generateToken(Users user) {
         try {
@@ -37,7 +38,7 @@ public class TokenService {
                     .withHeader(headerClaims)
                     .withIssuer("login-auth-api")
                     .withClaim("idUser", user.getId())
-                    .withClaim("email", user.getEmail())
+                    .withClaim(EMAIL_CLAIM, user.getEmail())
                     .withClaim("username", user.getUsername())
                     .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);
@@ -58,7 +59,7 @@ public class TokenService {
                     .verify(token);
 
             Long idUser = decodedJWT.getClaim("idUser").asLong();
-            String email = decodedJWT.getClaim("email").asString();
+            String email = decodedJWT.getClaim(EMAIL_CLAIM).asString();
             String username = decodedJWT.getClaim("username").asString();
 
             return new JwtTokenDTO(idUser, username, email);
@@ -70,7 +71,7 @@ public class TokenService {
     public static String extractEmail(String token) {
         try {
             DecodedJWT decodedJWT = JWT.decode(token);
-            return decodedJWT.getClaim("email").asString();
+            return decodedJWT.getClaim(EMAIL_CLAIM).asString();
         } catch (Exception e) {
             return null;
         }

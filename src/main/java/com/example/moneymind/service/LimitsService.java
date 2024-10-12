@@ -2,19 +2,17 @@ package com.example.moneymind.service;
 
 import com.example.moneymind.entidades.ExpenseLimit;
 import com.example.moneymind.repository.LimitsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class LimitsService {
-    @Autowired
-    private LimitsRepository limitsRepository;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private CategoryService categoryService;
+    private final LimitsRepository limitsRepository;
+    private final UserService userService;
+    private final CategoryService categoryService;
 
     public void create(ExpenseLimit expenseLimit) {
         userService.findById(expenseLimit.getIdUser());

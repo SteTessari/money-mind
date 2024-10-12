@@ -7,7 +7,7 @@ import com.example.moneymind.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,11 +21,10 @@ import static com.example.moneymind.config.exception.ExceptionMessages.USER_NOT_
 import static com.example.moneymind.config.security.TokenService.extractEmail;
 
 @Component
+@RequiredArgsConstructor
 public class SecurityFilter extends OncePerRequestFilter {
-    @Autowired
-    TokenService tokenService;
-    @Autowired
-    UserRepository userRepository;
+    private final TokenService tokenService;
+    private final UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {

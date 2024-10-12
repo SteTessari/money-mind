@@ -18,7 +18,7 @@ import java.time.YearMonth;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class investimentsDTO implements Serializable {
+public class InvestimentsDTO implements Serializable {
     @NotBlank(message = "Please provide description")
     private String description;
     @NotNull(message = "Please enter the month")
@@ -33,7 +33,7 @@ public class investimentsDTO implements Serializable {
 
     @PositiveOrZero
     @NotNull(message = "Please inform the amount applied")
-    private BigDecimal InitialValue;
+    private BigDecimal initialValue;
 
     private BigDecimal finalValeu;
 

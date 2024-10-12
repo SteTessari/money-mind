@@ -43,6 +43,6 @@ public class FinancialIncome {
 
     @NotNull
     @Column(name = "EXTRA_INCOME", nullable = false)
-    private BigDecimal extra_income;
+    private BigDecimal extraIncome;
 
 }

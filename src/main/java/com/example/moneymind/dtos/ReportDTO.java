@@ -16,7 +16,7 @@ import java.time.YearMonth;
 @AllArgsConstructor
 public class ReportDTO implements Serializable {
     private String month;
-    private BigDecimal TotalExpensesDebit;
+    private BigDecimal totalExpensesDebit;
     private BigDecimal totalExpensesCredit;
     private BigDecimal debitFinancialBalance;
     private BigDecimal creditFinancialBalance;

@@ -3,14 +3,14 @@ package com.example.moneymind.service.utils;
 import com.example.moneymind.config.exception.MoneyMindException;
 import com.example.moneymind.config.security.TokenService;
 import com.example.moneymind.dtos.authentication.JwtTokenDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class JwtTokenService {
-    @Autowired
-    private TokenService tokenService;
+    private final TokenService tokenService;
 
     public JwtTokenDTO getJwtTokenDTO(String authorizationHeader) {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {

@@ -25,7 +25,7 @@ public class UserService extends ValidateUserService {
     private final TokenService tokenService;
     private final PasswordEncoder passwordEncoder;
 
-    private final UserMapper userMapper = UserMapper.INSTANCE;
+    private static final UserMapper userMapper = UserMapper.INSTANCE;
 
     public Long create(UserDTO userDTO) {
         Optional<Users> userFound = repository.findByEmail(userDTO.getEmail());
@@ -57,11 +57,10 @@ public class UserService extends ValidateUserService {
                 .orElseThrow(() -> new MoneyMindException(HttpStatus.NOT_FOUND, USER_NOT_FOUND));
 
         if (passwordEncoder.matches(body.password(), user.getPassword())) {
-            String token = this.tokenService.generateToken(user);
-
-            return token;
+            return this.tokenService.generateToken(user);
         } else {
             throw new MoneyMindException(HttpStatus.BAD_REQUEST, INCORRECT_PASSWORD);
         }
     }
+
 }
