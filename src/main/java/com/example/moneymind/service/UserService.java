@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static com.example.moneymind.config.exception.ExceptionMessages.INCORRECT_PASSWORD;
+import static com.example.moneymind.config.exception.ExceptionMessages.USER_NOT_FOUND;
+
 @Service
 @RequiredArgsConstructor
 public class UserService extends ValidateUserService {
@@ -46,19 +49,19 @@ public class UserService extends ValidateUserService {
 
     public Users findById(Long idUser) {
         return repository.findById(idUser)
-                .orElseThrow(() -> new MoneyMindException(HttpStatus.NOT_FOUND, ExceptionMessages.USER_NOT_FOUND));
+                .orElseThrow(() -> new MoneyMindException(HttpStatus.NOT_FOUND, USER_NOT_FOUND));
     }
 
     public String login(LoginRequestDTO body) {
         Users user = repository.findByEmail(body.email())
-                .orElseThrow(() -> new MoneyMindException(HttpStatus.NOT_FOUND, ExceptionMessages.USER_NOT_FOUND));
+                .orElseThrow(() -> new MoneyMindException(HttpStatus.NOT_FOUND, USER_NOT_FOUND));
 
         if (passwordEncoder.matches(body.password(), user.getPassword())) {
             String token = this.tokenService.generateToken(user);
 
             return token;
         } else {
-            throw new MoneyMindException(HttpStatus.BAD_REQUEST, ExceptionMessages.INCORRECT_PASSWORD);
+            throw new MoneyMindException(HttpStatus.BAD_REQUEST, INCORRECT_PASSWORD);
         }
     }
 }

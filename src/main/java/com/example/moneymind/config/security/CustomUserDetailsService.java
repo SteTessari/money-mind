@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
+import static com.example.moneymind.config.exception.ExceptionMessages.USER_NOT_FOUND;
+
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
@@ -17,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Users user = this.usuarioRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(ExceptionMessages.USER_NOT_FOUND));
+        Users user = this.usuarioRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND));
 
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
 
