@@ -31,6 +31,14 @@
 		<org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
 		<org.projectlombok.version>1.18.24</org.projectlombok.version>
 		<jacoco.version>0.8.6</jacoco.version>
+		<sonar.host.url>http://localhost:9000</sonar.host.url>
+		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+		<sonar.language>java</sonar.language>
+		<sonar.projectKey>money-mind</sonar.projectKey>
+		<sonar.projectName>money-mind</sonar.projectName>
+		<sonar.coverage.exclusions>**/*Test*.java</sonar.coverage.exclusions>
+		<sonar.coverage.minimum>80</sonar.coverage.minimum>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -114,6 +122,37 @@
             <artifactId>jjwt-api</artifactId>
             <version>0.11.5</version>
         </dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.sonarsource.sonarqube/sonar-plugin-api -->
+		<dependency>
+			<groupId>org.sonarsource.sonarqube</groupId>
+			<artifactId>sonar-plugin-api</artifactId>
+			<version>9.4.0.54424</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.sonarsource.sonarqube/sonar-testing-harness -->
+		<dependency>
+			<groupId>org.sonarsource.sonarqube</groupId>
+			<artifactId>sonar-testing-harness</artifactId>
+			<version>10.6.0.92116</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.sonarsource.sonar-packaging-maven-plugin/sonar-packaging-maven-plugin -->
+		<dependency>
+			<groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
+			<artifactId>sonar-packaging-maven-plugin</artifactId>
+			<version>1.23.0.740</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
     </dependencies>
 
 
@@ -202,6 +241,12 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>4.0.0.4121</version>
 			</plugin>
 
 		</plugins>
