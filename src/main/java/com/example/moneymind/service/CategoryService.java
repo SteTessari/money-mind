@@ -5,6 +5,7 @@ import com.example.moneymind.dtos.CategoryDTO;
 import com.example.moneymind.entidades.Category;
 import com.example.moneymind.mapper.CategoryMapper;
 import com.example.moneymind.repository.CategoryRepository;
+import com.example.moneymind.repository.ReportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,7 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final UserService userService;
-
-    private final CategoryMapper categoryMapper = CategoryMapper.INSTANCE;
+    private static final CategoryMapper categoryMapper = CategoryMapper.INSTANCE;
 
     public void validateUserCategory(Long idCategory, Long idUser) {
         boolean existsCategoryByIdAndIdUser = categoryRepository.existsCategoryByIdAndIdUser(idCategory, idUser);
@@ -42,5 +42,20 @@ public class CategoryService {
 
     public List<Category> findAll(Long idUser) {
         return categoryRepository.findByIdUser(idUser);
+    }
+
+    public void update(Long idCategory, CategoryDTO categoryDTO, Long id) {
+        userService.findById(id);
+
+        Category category = findById(idCategory);
+
+        category = categoryMapper.updateFromDTO(categoryDTO, category);
+
+        categoryRepository.save(category);
+    }
+
+    private Category findById(Long idCategory){
+        return categoryRepository.findById(idCategory)
+                .orElseThrow(() -> new MoneyMindException(HttpStatus.NOT_FOUND, "Category not found"));
     }
 }

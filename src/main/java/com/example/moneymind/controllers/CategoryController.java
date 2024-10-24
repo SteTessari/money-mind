@@ -41,4 +41,19 @@ public class CategoryController {
     public ResponseEntity<List<Category>> findAll(@AuthenticationPrincipal JwtTokenDTO jwtTokenDTO) {
         return ResponseEntity.ok(categoryService.findAll(jwtTokenDTO.getId()));
     }
+
+    @Operation(summary = "Update category",
+            description = "Updates the category of the logged-in user based on the idUsuario from the token. " +
+                    "Changing the idUsuario is not allowed; only the description can be modified.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "User not found"),
+            @ApiResponse(responseCode = "204", description = "Category not found")
+    })
+    @PutMapping("/update/{idCategory}")
+    public ResponseEntity<Void> update(@PathVariable Long idCategory,
+                                       @RequestBody CategoryDTO categoryDTO,
+                                       @AuthenticationPrincipal JwtTokenDTO jwtTokenDTO) {
+        categoryService.update(idCategory, categoryDTO, jwtTokenDTO.getId());
+        return ResponseEntity.ok().build();
+    }
 }
