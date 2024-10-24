@@ -50,6 +50,8 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "Find user", description = "Retrieves the user based on the id from the token.")
+    @ApiResponse(responseCode = "404", description = "User not found.")
     @GetMapping
     public ResponseEntity<UserDataDTO> findUser(@AuthenticationPrincipal JwtTokenDTO jwtTokenDTO){
         return ResponseEntity.ok(service.findUser(jwtTokenDTO.getId()));
