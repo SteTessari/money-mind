@@ -62,7 +62,7 @@ public class TokenService {
             String email = decodedJWT.getClaim(EMAIL_CLAIM).asString();
             String username = decodedJWT.getClaim("username").asString();
 
-            return new JwtTokenDTO(idUser, username, email);
+            return new JwtTokenDTO(idUser, email, username);
 
         } catch (JWTVerificationException e) {
             return null;
