@@ -21,7 +21,8 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
-    @Operation(summary = "Create category", description = "Endpoint to create a new category.")
+    @Operation(summary = "Create category",
+            description = "Endpoint to create a new category. Create category only if it does not exist")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Category created successfully")
     })

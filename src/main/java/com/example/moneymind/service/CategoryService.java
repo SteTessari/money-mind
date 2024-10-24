@@ -24,6 +24,13 @@ public class CategoryService {
     public void create(Category category) {
         userService.findById(category.getIdUser());
 
-        categoryRepository.save(category);
+        boolean existsCategory = categoryRepository.existsByDescriptionLikeAndIdUser(category.getDescription(), category.getIdUser());
+
+        if (!existsCategory) {
+            categoryRepository.save(category);
+        }
+
     }
+
+
 }
