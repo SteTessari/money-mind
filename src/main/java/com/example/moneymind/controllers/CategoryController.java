@@ -1,5 +1,7 @@
 package com.example.moneymind.controllers;
 
+import com.example.moneymind.dtos.CategoryDTO;
+import com.example.moneymind.dtos.authentication.JwtTokenDTO;
 import com.example.moneymind.entidades.Category;
 import com.example.moneymind.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,10 +11,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/category")
@@ -27,8 +29,16 @@ public class CategoryController {
             @ApiResponse(responseCode = "201", description = "Category created successfully")
     })
     @PostMapping
-    public ResponseEntity<String> create(@Valid @RequestBody Category category){
-        categoryService.create(category);
+    public ResponseEntity<String> create(@Valid @RequestBody CategoryDTO categoryDTO,
+                                         @AuthenticationPrincipal JwtTokenDTO jwtTokenDTO) {
+        categoryService.create(categoryDTO, jwtTokenDTO.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body("Successfully created");
+    }
+
+    @Operation(summary = "Search all user categories",
+            description = "Search all categories of logged in user by token id")
+    @GetMapping("/find-all")
+    public ResponseEntity<List<Category>> findAll(@AuthenticationPrincipal JwtTokenDTO jwtTokenDTO) {
+        return ResponseEntity.ok(categoryService.findAll(jwtTokenDTO.getId()));
     }
 }
