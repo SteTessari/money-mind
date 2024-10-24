@@ -12,12 +12,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
-    @NotBlank(message = "Please enter a username.")
+public class UserDTO implements Serializable {
     private String username;
 
     @Email(message = "Please provide a valid email.")
