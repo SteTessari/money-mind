@@ -21,8 +21,6 @@ import java.time.Month;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ExpenseDTO implements Serializable {
-    @NotNull(message = "Please inform the user")
-    private Long idUser;
 
     @NotBlank(message = "Please provide a description of the expense")
     private String description;
@@ -46,7 +44,7 @@ public class ExpenseDTO implements Serializable {
     private FormPaymentType formOfPayment;
 
     @NotNull(message = "Please enter the category")
-    private CategoryType categoryType;
+    private Long idCategory;
 
     @NotNull(message = "Please enter the type of expense")
     private TypeFinancialExpense typeFinancialExpense;

@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.YearMonth;
 
 @Entity
 @Table(name = "expense")
@@ -47,7 +48,7 @@ public class Expense implements Serializable {
     private Status status = Status.EM_ABERTO;
     @NotNull
     @Column(name = "MONTH", nullable = false)
-    private Month month;
+    private String month;
 
     @NotNull
     @Column(name = "YEAR", nullable = false)
@@ -67,5 +68,16 @@ public class Expense implements Serializable {
     @Column(name = "TYPE_FINANCIAL_EXPENSE", nullable = false)
     private TypeFinancialExpense typeFinancialExpense;
 
+    @NotNull
+    @Column(name = "ID_CATEGORY", nullable = false)
+    private Long idCategory;
 
+
+    public void setMonth(YearMonth yearMonth) {
+        this.month = yearMonth.toString();
+    }
+
+    public YearMonth getMonth() {
+        return YearMonth.parse(month);
+    }
 }

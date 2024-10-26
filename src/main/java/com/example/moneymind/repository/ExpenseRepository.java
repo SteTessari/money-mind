@@ -18,7 +18,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 
     Page<Expense> findByIdUser(Long idUser, Pageable pageable);
 
-    List<Expense> findByMonth(Month month);
+    List<Expense> findByMonth(String month);
 
     @Query("select sum(e.value) from Expense e " +
             "where e.idUser = :idUser and e.month = :month and e.year = :year " +
