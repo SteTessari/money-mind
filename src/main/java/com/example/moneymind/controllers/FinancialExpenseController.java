@@ -30,8 +30,9 @@ public class FinancialExpenseController {
             @ApiResponse(responseCode = "400", description = "The expense amount is greater than the defined limit")
     })
     @PostMapping
-    public ResponseEntity<String> create(@Valid @RequestBody ExpenseDTO expenseDTO) {
-        expensesService.create(expenseDTO);
+    public ResponseEntity<String> create(@Valid @RequestBody ExpenseDTO expenseDTO,
+                                         @AuthenticationPrincipal JwtTokenDTO jwtTokenDTO) {
+        expensesService.create(expenseDTO, jwtTokenDTO);
         return ResponseEntity.ok("Successfully inserted");
     }
 

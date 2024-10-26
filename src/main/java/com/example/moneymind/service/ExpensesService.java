@@ -2,6 +2,7 @@ package com.example.moneymind.service;
 
 import com.example.moneymind.config.exception.MoneyMindException;
 import com.example.moneymind.dtos.ExpenseDTO;
+import com.example.moneymind.dtos.authentication.JwtTokenDTO;
 import com.example.moneymind.entidades.Expense;
 import com.example.moneymind.entidades.ExpenseLimit;
 import com.example.moneymind.enums.Status;
@@ -29,7 +30,7 @@ public class ExpensesService extends ValidateEssencialExpenses {
 
     private static final EssencialExpensesMapper essencialExpensesMapper = EssencialExpensesMapper.INSTANCE;
 
-    public void create(ExpenseDTO expenseDTO) {
+    public void create(ExpenseDTO expenseDTO, JwtTokenDTO jwtTokenDTO) {
         if (expenseDTO.getInvoicePaymentDate() != null) {
             expenseDTO.setStatus(Status.PAGA);
         }
@@ -40,7 +41,7 @@ public class ExpensesService extends ValidateEssencialExpenses {
         }
 
         Expense expense = essencialExpensesMapper.toObject(expenseDTO);
-        treatmentsBeforeInserting(expense);
+        create(expense);
     }
 
     public void update(Long idGastoEssencial, ExpenseDTO expenseDTO) {
@@ -69,19 +70,6 @@ public class ExpensesService extends ValidateEssencialExpenses {
 
     private void create(Expense expense) {
         expenseRepository.save(expense);
-    }
-
-    private void treatmentsBeforeInserting(Expense expense) {
-        BigDecimal value = expense.getValue();
-
-        List<Expense> expenses = expenseRepository
-                .findByMonth(expense.getMonth());
-
-        ExpenseLimit expenseLimit = limitsRepository.findByMonth(YearMonth.now().toString())
-                .orElse(null);
-
-        validateLimit(expenses, expenseLimit, value);
-        create(expense);
     }
 
     private Expense findById(Long idGastoEssencial) {
