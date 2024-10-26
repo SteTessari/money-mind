@@ -8,8 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface LimitsRepository extends JpaRepository<ExpenseLimit, Long> {
-    Optional<ExpenseLimit> findByIdUserAndIdCategoryAndMonth(Long idUser, Long idCategory, String month);
-    Optional<ExpenseLimit> findByMonth(String month);
+    Optional<ExpenseLimit> findByIdAndIdUser(Long id, Long idUser);
 
 
 }
