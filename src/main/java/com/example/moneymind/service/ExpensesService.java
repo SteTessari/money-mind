@@ -1,6 +1,7 @@
 package com.example.moneymind.service;
 
 import com.example.moneymind.config.exception.MoneyMindException;
+import com.example.moneymind.dtos.CheckExpenseDTO;
 import com.example.moneymind.dtos.ExpenseDTO;
 import com.example.moneymind.dtos.authentication.JwtTokenDTO;
 import com.example.moneymind.entidades.Expense;
@@ -84,5 +85,22 @@ public class ExpensesService extends ValidateEssencialExpenses {
                 .stream()
                 .map(essencialExpensesMapper::toDTO)
                 .toList();
+    }
+
+    public String checkLimitBeforeInsertingExpense(CheckExpenseDTO expenseDTO, Long idUser) {
+        BigDecimal value = expenseDTO.getValue();
+
+        List<Expense> expenses = getExpensesByIdUserMonthAndIdCategory(expenseDTO.getMonth().toString(), expenseDTO.getIdCategory(), idUser);
+
+        ExpenseLimit expenseLimit = limitsRepository.findByIdUserAndIdCategoryAndMonth(
+                idUser, expenseDTO.getIdCategory(), expenseDTO.getMonth().toString())
+                .orElse(null);
+
+        return validateLimit(expenses, expenseLimit, value);
+    }
+
+    public List<Expense> getExpensesByIdUserMonthAndIdCategory(String month, Long idCategory, Long idUser) {
+        return expenseRepository
+                .findByIdUserAndMonthAndIdCategory(idUser, month, idCategory);
     }
 }

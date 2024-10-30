@@ -24,7 +24,7 @@ public class CategoryService {
         boolean existsCategoryByIdAndIdUser = categoryRepository.existsCategoryByIdAndIdUser(idCategory, idUser);
 
         if (!existsCategoryByIdAndIdUser)
-            throw new MoneyMindException(HttpStatus.BAD_REQUEST, "Category does not belong to the informed user.");
+            throw new MoneyMindException(HttpStatus.BAD_REQUEST, "Category not found.");
     }
 
     public void create(CategoryDTO categoryDTO, Long idUser) {

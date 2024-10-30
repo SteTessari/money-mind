@@ -1,5 +1,6 @@
 package com.example.moneymind.controllers;
 
+import com.example.moneymind.dtos.CheckExpenseDTO;
 import com.example.moneymind.dtos.ExpenseDTO;
 import com.example.moneymind.dtos.authentication.JwtTokenDTO;
 import com.example.moneymind.service.ExpensesService;
@@ -68,5 +69,11 @@ public class FinancialExpenseController {
         return ResponseEntity.ok(expensesService.findAll(idUser, pageable));
     }
 
+    @GetMapping("/check-limit/before-inserting")
+    public ResponseEntity<String> checkLimitBeforeInsertingExpense(@Valid @RequestBody CheckExpenseDTO expenseDTO,
+                                                                   @AuthenticationPrincipal JwtTokenDTO jwtTokenDTO){
+        String message = expensesService.checkLimitBeforeInsertingExpense(expenseDTO, jwtTokenDTO.getId());
+        return ResponseEntity.ok(message);
+    }
 
 }

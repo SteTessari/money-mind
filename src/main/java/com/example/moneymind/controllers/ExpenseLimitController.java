@@ -27,24 +27,32 @@ public class ExpenseLimitController {
             @ApiResponse(responseCode = "400", description = "Category does not belong to the informed user")
     })
     @PostMapping
-    public ResponseEntity<String> create(@Valid @RequestBody ExpenseLimit expenseLimit) {
-        limitsService.create(expenseLimit);
+    public ResponseEntity<String> create(@Valid @RequestBody ExpenseLimit expenseLimit,
+                                         @AuthenticationPrincipal JwtTokenDTO jwtTokenDTO) {
+        limitsService.create(expenseLimit, jwtTokenDTO.getId());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{idLimit}")
     public ResponseEntity<String> editLimit(@PathVariable Long idLimit,
                                             @RequestBody ExpenseLimitDTO expenseLimitDTO,
-                                            @AuthenticationPrincipal JwtTokenDTO jwtTokenDTO){
+                                            @AuthenticationPrincipal JwtTokenDTO jwtTokenDTO) {
         limitsService.editLimit(idLimit, expenseLimitDTO, jwtTokenDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @DeleteMapping("/{idLimit}")
     public ResponseEntity<Void> deleteById(@AuthenticationPrincipal JwtTokenDTO jwtTokenDTO,
-                                           @PathVariable Long idLimit){
+                                           @PathVariable Long idLimit) {
         limitsService.deleteById(idLimit, jwtTokenDTO.getId());
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @GetMapping("/check-limit/{idLimit}/before-updating")
+    public ResponseEntity<String> checkLimitBeforeUpdatingLimit(@PathVariable Long idLimit,
+                                                                @RequestBody ExpenseLimitDTO expenseLimitDTO,
+                                                                @AuthenticationPrincipal JwtTokenDTO jwtTokenDTO) {
+        String message = limitsService.checkLimitBeforeUpdatingLimit(idLimit, expenseLimitDTO, jwtTokenDTO.getId());
+        return ResponseEntity.ok(message);
+    }
 }
