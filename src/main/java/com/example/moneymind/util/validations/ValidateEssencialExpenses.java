@@ -1,7 +1,7 @@
 package com.example.moneymind.util.validations;
 
-import com.example.moneymind.entidades.Expense;
-import com.example.moneymind.entidades.ExpenseLimit;
+import com.example.moneymind.entidades.Despesa;
+import com.example.moneymind.entidades.Limite;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -10,16 +10,16 @@ import java.util.List;
 @Component
 public class ValidateEssencialExpenses {
 
-    protected String validateLimit(List<Expense> gastos,
-                                   ExpenseLimit limite, BigDecimal valor) {
+    protected String validarLimite(List<Despesa> gastos,
+                                   Limite limite, BigDecimal valor) {
         BigDecimal total = gastos.stream()
-                .map(Expense::getValue)
+                .map(Despesa::getValor)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         if (limite != null) {
-            BigDecimal totalExpenses = total.add(valor);
-            if (totalExpenses.compareTo(limite.getLimit()) > 0) {
-                return "Limit reached, do you want to continue anyway?.";
+            BigDecimal totalDespesas = total.add(valor);
+            if (totalDespesas.compareTo(limite.getLimite()) > 0) {
+                return "Limite atingido, deseja continuar mesmo assim?.";
             }
         }
 

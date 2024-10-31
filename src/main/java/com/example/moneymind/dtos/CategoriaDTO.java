@@ -1,6 +1,6 @@
 package com.example.moneymind.dtos;
 
-
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,12 +10,9 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class UserDataDTO implements Serializable {
-    private String username;
-
-    private String email;
-
-    private String telefone;
+@AllArgsConstructor
+public class CategoriaDTO implements Serializable {
+    @NotBlank
+    private String descricao;
 }

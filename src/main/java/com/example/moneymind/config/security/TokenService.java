@@ -7,7 +7,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.moneymind.config.exception.MoneyMindException;
 import com.example.moneymind.dtos.authentication.JwtTokenDTO;
-import com.example.moneymind.entidades.Users;
+import com.example.moneymind.entidades.Usuario;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class TokenService {
 
     private static final String EMAIL_CLAIM = "email";
 
-    public String generateToken(Users user) {
+    public String generateToken(Usuario user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
 
@@ -37,14 +37,14 @@ public class TokenService {
             return JWT.create()
                     .withHeader(headerClaims)
                     .withIssuer("login-auth-api")
-                    .withClaim("idUser", user.getId())
+                    .withClaim("idUsuario", user.getId())
                     .withClaim(EMAIL_CLAIM, user.getEmail())
                     .withClaim("username", user.getUsername())
                     .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);
 
         } catch (JWTCreationException e) {
-            throw new MoneyMindException(HttpStatus.INTERNAL_SERVER_ERROR, "Error generating token.");
+            throw new MoneyMindException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao gerar o token.");
         }
     }
 
@@ -58,16 +58,17 @@ public class TokenService {
                     .build()
                     .verify(token);
 
-            Long idUser = decodedJWT.getClaim("idUser").asLong();
+            Long idUsuario = decodedJWT.getClaim("idUsuario").asLong();
             String email = decodedJWT.getClaim(EMAIL_CLAIM).asString();
             String username = decodedJWT.getClaim("username").asString();
 
-            return new JwtTokenDTO(idUser, email, username);
+            return new JwtTokenDTO(idUsuario, email, username);
 
         } catch (JWTVerificationException e) {
             return null;
         }
     }
+
     public static String extractEmail(String token) {
         try {
             DecodedJWT decodedJWT = JWT.decode(token);

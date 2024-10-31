@@ -10,6 +10,7 @@ public class MoneyMindException extends RuntimeException {
 
     private final HttpStatusCode code;
     private final String message;
+
     public MoneyMindException(HttpStatusCode code, String message) {
         super(message);
         this.code = code;

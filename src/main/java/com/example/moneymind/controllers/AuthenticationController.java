@@ -1,7 +1,7 @@
 package com.example.moneymind.controllers;
 
-import com.example.moneymind.dtos.authentication.LoginRequestDTO;
-import com.example.moneymind.service.UserService;
+import com.example.moneymind.dtos.authentication.LoginDTO;
+import com.example.moneymind.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/autenticacao")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    private final UserService userService;
+    private final UsuarioService usuarioService;
 
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "User not found"),
-            @ApiResponse(responseCode = "400", description = "Incorrect password"),
-            @ApiResponse(responseCode = "500", description = "Error generating token")
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
+            @ApiResponse(responseCode = "400", description = "Senha incorreta"),
+            @ApiResponse(responseCode = "500", description = "Erro ao gerar o token")
     })
-    @Operation(summary = "Login", description = "Endpoint to perform user login.")
+    @Operation(summary = "Login", description = "Endpoint para fazer login do usuário.")
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequestDTO body) {
-        return ResponseEntity.accepted().body(userService.login(body));
+    public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
+        return ResponseEntity.accepted().body(usuarioService.login(loginDTO));
     }
 }

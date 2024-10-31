@@ -1,7 +1,7 @@
 package com.example.moneymind.config.security;
 
-import com.example.moneymind.entidades.Users;
-import com.example.moneymind.repository.UserRepository;
+import com.example.moneymind.entidades.Usuario;
+import com.example.moneymind.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,18 +10,18 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
-import static com.example.moneymind.config.exception.ExceptionMessages.USER_NOT_FOUND;
+import static com.example.moneymind.config.exception.MensagemDeExcecao.USUARIO_NAO_ENCONTRADO;
 
 @Component
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
-    private final UserRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Users user = this.usuarioRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND));
+        Usuario user = this.usuarioRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(USUARIO_NAO_ENCONTRADO));
 
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getSenha(), new ArrayList<>());
 
     }
 }

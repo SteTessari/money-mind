@@ -2,8 +2,8 @@ package com.example.moneymind.config.security;
 
 import com.example.moneymind.config.exception.MoneyMindException;
 import com.example.moneymind.dtos.authentication.JwtTokenDTO;
-import com.example.moneymind.entidades.Users;
-import com.example.moneymind.repository.UserRepository;
+import com.example.moneymind.entidades.Usuario;
+import com.example.moneymind.repository.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,20 +17,19 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.util.Collections;
 
-import static com.example.moneymind.config.exception.ExceptionMessages.USER_NOT_FOUND;
-import static com.example.moneymind.config.security.TokenService.extractEmail;
+import static com.example.moneymind.config.exception.MensagemDeExcecao.USUARIO_NAO_ENCONTRADO;
 
 @Component
 @RequiredArgsConstructor
 public class SecurityFilter extends OncePerRequestFilter {
     private final TokenService tokenService;
-    private final UserRepository userRepository;
+    private final UsuarioRepository usuarioRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
-        try{
+        try {
 
-            if (request.getRequestURI().equals("/auth/login") || request.getRequestURI().equals("/user/register")){
+            if (request.getRequestURI().equals("/auth/login") || request.getRequestURI().equals("/user/register")) {
                 filterChain.doFilter(request, response);
                 return;
             }
@@ -38,8 +37,8 @@ public class SecurityFilter extends OncePerRequestFilter {
             var login = tokenService.validateToken(token);
 
             if (login != null) {
-                Users user = userRepository.findByEmail(login.getEmail())
-                        .orElseThrow(() -> new MoneyMindException(HttpStatus.NOT_FOUND, "Usuário não encontrado."));
+                Usuario user = usuarioRepository.findByEmail(login.getEmail())
+                        .orElseThrow(() -> new MoneyMindException(HttpStatus.NOT_FOUND, USUARIO_NAO_ENCONTRADO));
                 var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 
                 var jwtTokenDTO = new JwtTokenDTO(user.getId(), user.getEmail(), user.getUsername());
@@ -52,7 +51,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         } catch (MoneyMindException e) {
             throw e;
         } catch (Exception e) {
-            throw new MoneyMindException(HttpStatus.UNAUTHORIZED, "Unauthorized: Invalid token");
+            throw new MoneyMindException(HttpStatus.UNAUTHORIZED, "Token inválido");
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.moneymind.dtos;
 
 
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,10 +13,13 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDataDTO implements Serializable {
+public class AtualizarUsuarioDTO implements Serializable {
     private String username;
 
+    @Email(message = "Por favor informe um email válido.")
     private String email;
 
     private String telefone;
+
+    private String senhaAtual;
 }

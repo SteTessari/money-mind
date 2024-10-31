@@ -11,6 +11,7 @@ public class ValidateCapitalLetter implements ConstraintValidator<ContainsCapita
     private static final String UPPER_CASE_PATTERN = ".*[A-Z].*";
 
     private final Pattern pattern = Pattern.compile(UPPER_CASE_PATTERN);
+
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {
         if (password == null || password.isEmpty()) {

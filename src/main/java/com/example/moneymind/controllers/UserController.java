@@ -1,10 +1,10 @@
 package com.example.moneymind.controllers;
 
-import com.example.moneymind.dtos.UpdateUserDTO;
-import com.example.moneymind.dtos.UserDTO;
+import com.example.moneymind.dtos.AtualizarUsuarioDTO;
 import com.example.moneymind.dtos.UserDataDTO;
+import com.example.moneymind.dtos.UsuarioDTO;
 import com.example.moneymind.dtos.authentication.JwtTokenDTO;
-import com.example.moneymind.service.UserService;
+import com.example.moneymind.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -16,45 +16,45 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/usuario")
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService service;
+    private final UsuarioService service;
 
     @Operation(
-            summary = "Register User",
-            description = "Endpoint to register a new user."
+            summary = "Cadastrar usuário",
+            description = "Cadastra um novo usuário."
     )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "409", description = "The username already exists"),
-            @ApiResponse(responseCode = "400", description = "Invalid password"),
-            @ApiResponse(responseCode = "201", description = "User created successfully")
+            @ApiResponse(responseCode = "409", description = "O username já existe"),
+            @ApiResponse(responseCode = "400", description = "Senha inválida"),
+            @ApiResponse(responseCode = "201", description = "Usuário cadastrado com sucesso.")
     })
-    @PostMapping("/register")
-    public ResponseEntity<Long> create(@Valid @RequestBody UserDTO userDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(userDTO));
+    @PostMapping
+    public ResponseEntity<Long> cadastrar(@Valid @RequestBody UsuarioDTO usuarioDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(usuarioDTO));
     }
 
-    @Operation(summary = "Update user", description = "Endpoint to update user")
+    @Operation(summary = "Editar dados do usuário")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "User not found."),
-            @ApiResponse(responseCode = "400", description = "Please enter your password to update your email."),
-            @ApiResponse(responseCode = "400", description = "Incorrect password.")
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado."),
+            @ApiResponse(responseCode = "400", description = "Por favor insira sua senha atual para atualizar o email."),
+            @ApiResponse(responseCode = "400", description = "Senha incorreta.")
     })
-    @PutMapping("/update")
-    public ResponseEntity<Void> update(@AuthenticationPrincipal JwtTokenDTO jwtTokenDTO,
-                                       @Valid @RequestBody UpdateUserDTO updateUserDTO){
+    @PutMapping("/editar")
+    public ResponseEntity<Void> editar(@AuthenticationPrincipal JwtTokenDTO jwtTokenDTO,
+                                       @Valid @RequestBody AtualizarUsuarioDTO atualizarUsuarioDTO) {
 
-        service.update(updateUserDTO, jwtTokenDTO);
+        service.editar(atualizarUsuarioDTO, jwtTokenDTO);
         return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "Find user", description = "Retrieves the user based on the id from the token.")
-    @ApiResponse(responseCode = "404", description = "User not found.")
-    @GetMapping
-    public ResponseEntity<UserDataDTO> findUser(@AuthenticationPrincipal JwtTokenDTO jwtTokenDTO){
-        return ResponseEntity.ok(service.findUser(jwtTokenDTO.getId()));
+    @Operation(summary = "Buscar dados do usuário", description = "Busca os dados do usuário logado pelo id do usuário no token.")
+    @ApiResponse(responseCode = "404", description = "Usuário não encontrado.")
+    @GetMapping("/buscar")
+    public ResponseEntity<UserDataDTO> buscarUsuario(@AuthenticationPrincipal JwtTokenDTO jwtTokenDTO) {
+        return ResponseEntity.ok(service.buscarDadosUsuarioPorId(jwtTokenDTO.getId()));
     }
 
 }
