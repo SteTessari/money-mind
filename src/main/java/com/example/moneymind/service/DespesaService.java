@@ -10,7 +10,7 @@ import com.example.moneymind.enums.Status;
 import com.example.moneymind.mapper.DespesaMapper;
 import com.example.moneymind.repository.DespesaRepository;
 import com.example.moneymind.repository.LimiteRepository;
-import com.example.moneymind.util.validations.ValidateEssencialExpenses;
+import com.example.moneymind.util.validations.ValidarDespesas;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +24,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DespesaService extends ValidateEssencialExpenses {
+public class DespesaService extends ValidarDespesas {
 
     private final LimiteRepository limiteRepository;
     private final DespesaRepository despesaRepository;

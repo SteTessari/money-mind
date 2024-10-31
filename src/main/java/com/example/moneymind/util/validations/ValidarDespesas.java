@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Component
-public class ValidateEssencialExpenses {
+public class ValidarDespesas {
 
     protected String validarLimite(List<Despesa> gastos,
                                    Limite limite, BigDecimal valor) {
