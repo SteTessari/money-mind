@@ -55,7 +55,7 @@ public class CategoriaService {
         categoriaRepository.save(categoria);
     }
 
-    private Categoria buscarPorId(Long idCategoria) {
+    public Categoria buscarPorId(Long idCategoria) {
         return categoriaRepository.findById(idCategoria)
                 .orElseThrow(() -> new MoneyMindException(HttpStatus.NOT_FOUND, "Categoria não encontrada."));
     }

@@ -18,7 +18,7 @@ public interface DespesaRepository extends JpaRepository<Despesa, Long> {
 
     Page<Despesa> findByUsuario_Id(Long idUsuario, Pageable pageable);
 
-    List<Despesa> findByDataAndCategoria_IdAndUsuario_Id(YearMonth data, Long idCategoria, Long idUsuario);
+    List<Despesa> findByDataAndCategoria_IdAndUsuario_Id(String data, Long idCategoria, Long idUsuario);
 
 
     @Query("select sum(e.valor) from Despesa e " +

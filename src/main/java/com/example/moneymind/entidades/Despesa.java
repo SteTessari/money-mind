@@ -47,7 +47,7 @@ public class Despesa implements Serializable {
     private Status status = Status.EM_ABERTO;
 
     @Column(name = "DATA", nullable = false)
-    private YearMonth data;
+    private String data;
 
     @Column(name = "VALOR", nullable = false)
     private BigDecimal valor;

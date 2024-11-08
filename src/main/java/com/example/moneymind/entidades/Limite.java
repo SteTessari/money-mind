@@ -33,7 +33,7 @@ public class Limite implements Serializable {
     private Categoria categoria;
 
     @Column(name = "DATA")
-    private YearMonth data;
+    private String data;
 
     @Column(name = "limite")
     private BigDecimal limite;

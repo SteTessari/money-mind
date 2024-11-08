@@ -26,7 +26,7 @@ public class Receita {
     private Usuario usuario;
 
     @Column(name = "DATA")
-    private YearMonth data;
+    private String data;
 
     @Column(name = "SALARIO", nullable = false)
     private BigDecimal salario;

@@ -9,9 +9,11 @@ import java.util.Optional;
 
 @Repository
 public interface LimiteRepository extends JpaRepository<Limite, Long> {
-    Optional<Limite> findByCategoria_IdAndDataAndUsuario_Id(Long idCategoria, YearMonth data, Long idUsuario);
+    Optional<Limite> findByCategoria_IdAndDataAndUsuario_Id(Long idCategoria, String data, Long idUsuario);
 
     Optional<Limite> findByCategoria_IdAndUsuario_Id(Long idCategoria, Long idUsuario);
+
+    Optional<Limite> findByIdAndCategoria_Id(Long id, Long idCategoria);
 
     Optional<Limite> findByIdAndUsuario_Id(Long id, Long idUsuario);
 

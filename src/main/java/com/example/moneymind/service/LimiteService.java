@@ -3,6 +3,7 @@ package com.example.moneymind.service;
 import com.example.moneymind.config.exception.MoneyMindException;
 import com.example.moneymind.dtos.LimiteDTO;
 import com.example.moneymind.dtos.authentication.JwtTokenDTO;
+import com.example.moneymind.entidades.Categoria;
 import com.example.moneymind.entidades.Despesa;
 import com.example.moneymind.entidades.Limite;
 import com.example.moneymind.entidades.Usuario;
@@ -26,7 +27,11 @@ public class LimiteService {
     private final LimiteMapper limiteMapper = LimiteMapper.INSTANCE;
 
     public void criar(LimiteDTO limiteDTO, Long idUsuario) {
+
         Limite limite = limiteMapper.toObject(limiteDTO);
+
+        Categoria categoria = categoriaService.buscarPorId(limiteDTO.getIdCategoria());
+        limite.setCategoria(categoria);
 
         Usuario usuario = usuarioService.buscarPorId(idUsuario);
         limite.setUsuario(usuario);
@@ -52,6 +57,7 @@ public class LimiteService {
     }
 
     public void editar(Long idLimite, LimiteDTO limiteDTO, JwtTokenDTO jwtTokenDTO) {
+
         Limite limite = buscarPorId(jwtTokenDTO.getId(), idLimite);
 
         limite = limiteMapper.updateFromDTO(limiteDTO, limite);
@@ -67,6 +73,9 @@ public class LimiteService {
 
     public String verificarLimiteAntesDeAtualizar(Long idLimite, LimiteDTO limiteDTO, Long idUsuario) {
         buscarPorId(idUsuario, idLimite);
+
+        limiteRepository.findByIdAndCategoria_Id(idLimite, limiteDTO.getIdCategoria())
+                .orElseThrow(() -> new MoneyMindException(HttpStatus.BAD_REQUEST, "O limite informado não pertence à categoria informada."));
 
         List<Despesa> despesas = despesaService.buscarDespesasDoUsuarioPorCategoriaEMes(
                 limiteDTO.getData(), limiteDTO.getIdCategoria(), idUsuario);

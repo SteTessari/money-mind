@@ -47,11 +47,11 @@ public class LimiteController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @GetMapping("/verificar-limite/{idLimite}/antes-de-atualizar")
+    @PostMapping("/verificar-limite/{idLimite}/antes-de-atualizar")
     public ResponseEntity<String> verificarLimiteAntesDeAtualizar(@PathVariable Long idLimite,
                                                                   @RequestBody LimiteDTO limiteDTO,
                                                                   @AuthenticationPrincipal JwtTokenDTO jwtTokenDTO) {
         String mensagem = limiteService.verificarLimiteAntesDeAtualizar(idLimite, limiteDTO, jwtTokenDTO.getId());
-        return ResponseEntity.ok(mensagem);
+        return ResponseEntity.accepted().body(mensagem);
     }
 }

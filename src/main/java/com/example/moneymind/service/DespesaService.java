@@ -4,8 +4,10 @@ import com.example.moneymind.config.exception.MoneyMindException;
 import com.example.moneymind.dtos.DespesaDTO;
 import com.example.moneymind.dtos.VerificarDespesaDTO;
 import com.example.moneymind.dtos.authentication.JwtTokenDTO;
+import com.example.moneymind.entidades.Categoria;
 import com.example.moneymind.entidades.Despesa;
 import com.example.moneymind.entidades.Limite;
+import com.example.moneymind.entidades.Usuario;
 import com.example.moneymind.enums.Status;
 import com.example.moneymind.mapper.DespesaMapper;
 import com.example.moneymind.repository.DespesaRepository;
@@ -19,7 +21,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.YearMonth;
 import java.util.List;
 
 @Service
@@ -28,10 +29,13 @@ public class DespesaService extends ValidarDespesas {
 
     private final LimiteRepository limiteRepository;
     private final DespesaRepository despesaRepository;
+    private final UsuarioService usuarioService;
+    private final CategoriaService categoriaService;
 
     private static final DespesaMapper despesaMapper = DespesaMapper.INSTANCE;
 
     public void criar(DespesaDTO despesaDTO, JwtTokenDTO jwtTokenDTO) {
+
         if (despesaDTO.getDataPagamento() != null) {
             despesaDTO.setStatus(Status.PAGA);
         }
@@ -42,6 +46,13 @@ public class DespesaService extends ValidarDespesas {
         }
 
         Despesa despesa = despesaMapper.toObject(despesaDTO);
+
+        Usuario usuario = usuarioService.buscarPorId(jwtTokenDTO.getId());
+        despesa.setUsuario(usuario);
+
+        Categoria categoria = categoriaService.buscarPorId(despesaDTO.getIdCategoria());
+        despesa.setCategoria(categoria);
+
         criar(despesa);
     }
 
@@ -90,7 +101,7 @@ public class DespesaService extends ValidarDespesas {
         return validarLimite(despesas, limite, value);
     }
 
-    public List<Despesa> buscarDespesasDoUsuarioPorCategoriaEMes(YearMonth data, Long idCategoria, Long idUsuario) {
+    public List<Despesa> buscarDespesasDoUsuarioPorCategoriaEMes(String data, Long idCategoria, Long idUsuario) {
         return despesaRepository
                 .findByDataAndCategoria_IdAndUsuario_Id(data, idCategoria, idUsuario);
     }
